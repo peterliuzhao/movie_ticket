@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 
-@Configuration
+@Configuration 
 public class AppConfig implements WebMvcConfigurer {
 //	@Override
 //	public void addInterceptors(InterceptorRegistry registry) {

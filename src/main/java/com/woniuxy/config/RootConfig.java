@@ -85,7 +85,7 @@ public class RootConfig {
         map.put("/**","custom");
             
 //		map.put("/index.jsp", "anon");
-//		map.put("/users/login", "anon");
+//		map.put("/users/login", "anon");   
 //		map.put("/logout", "logout");
 //		map.put("/users.jsp", "roles[admin]");
 //		map.put("/cars.jsp", "roles[guest]");

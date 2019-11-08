@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 public class ShiroUserFilter extends UserFilter{
 	
 	private void setHeader(HttpServletRequest request,HttpServletResponse response){
-        //跨域的header设置
+        //跨域的header设置  
         response.setHeader("Access-control-Allow-Origin", request.getHeader("Origin"));
         response.setHeader("Access-Control-Allow-Methods", request.getMethod());
         response.setHeader("Access-Control-Allow-Credentials", "true");

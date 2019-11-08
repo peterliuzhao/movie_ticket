@@ -23,7 +23,7 @@ public class UserServiceImpl implements IUserService{
 		mapper.insertSelective(u);
 	}
 
-	@Transactional
+	@Transactional       
 	@Override  
 	public void delete(String uid) {
 		mapper.deleteByPrimaryKey(uid);

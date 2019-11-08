@@ -80,7 +80,7 @@ public class UserController {
 		System.out.println(username + password);
 		Subject subject = SecurityUtils.getSubject();
 		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-
+  
 		Map<String, Object> map = new HashMap<>();
 		try {
 			subject.login(token);  
