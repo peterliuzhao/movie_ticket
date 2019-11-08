@@ -41,10 +41,10 @@ public class UserController {
 	private IUserService service;
 	
 	//shiro 注册 用户增加加密
-	@PostMapping("save")
+	@GetMapping("save")
 	@ResponseBody
 	public Map<String, Object> save(Users user) {
-//		System.out.println(user);
+		System.out.println(user);
 		Map<String, Object> map = new HashMap<>();
 		if (user.getUname()!=null&&user.getUpwd()!=null) {
 			try {
@@ -52,6 +52,10 @@ public class UserController {
 				String password = AccountUtils.encrypt(user.getUpwd(), password_salt);
 				user.setUpwd(password);
 				user.setSalt(password_salt);
+				
+				String userId = AccountUtils.uuid();
+				user.setUid(userId);
+				
 				map.put("status", 200);
 				map.put("message", "注册成功");
 				service.save(user);

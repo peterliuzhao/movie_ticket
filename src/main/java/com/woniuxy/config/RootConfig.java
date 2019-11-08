@@ -3,6 +3,7 @@ package com.woniuxy.config;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.Filter;
 import javax.sql.DataSource;
 
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import org.apache.shiro.web.filter.authc.UserFilter;
 
 /*
  在SpringBoot环境中，在启动类上，添加了@SpringBootApplication(scanBasePackages = "com.woniuxy")
@@ -75,38 +77,22 @@ public class RootConfig {
 		sf.setLoginUrl("/index.jsp");
 		sf.setUnauthorizedUrl("/unauthorized.jsp");
 		Map<String, String> map = new HashMap<>();
+
+		// 自定义shiro过滤器的配置
+        Map<String, Filter> filter = new HashMap<>();
+        filter.put("custom", new ShiroUserFilter());
+        sf.setFilters(filter);
+        map.put("/**","custom");
+            
 //		map.put("/index.jsp", "anon");
 //		map.put("/users/login", "anon");
 //		map.put("/logout", "logout");
 //		map.put("/users.jsp", "roles[admin]");
 //		map.put("/cars.jsp", "roles[guest]");
+        
 		map.put("/**", "anon");//"authc");
 		sf.setFilterChainDefinitionMap(map);
 		return sf;
 	}
 	
-	
-	
-	/*
-	 目前效果：无效， 暂时把所有权限控制写在RootConfig中。
-	@Bean(name = "lifecycleBeanPostProcessor")
-    public LifecycleBeanPostProcessor getLifecycleBeanPostProcessor() {
-        return new LifecycleBeanPostProcessor();
-    }
-	
-	@Bean
-	public DefaultAdvisorAutoProxyCreator getDefaultAdvisorAutoProxyCreator() {
-		DefaultAdvisorAutoProxyCreator daapc = new DefaultAdvisorAutoProxyCreator();
-		return daapc;
-	}
-	
-	@Bean
-	public AuthorizationAttributeSourceAdvisor getAuthorizationAttributeSourceAdvisor() {
-		AuthorizationAttributeSourceAdvisor aasa = new AuthorizationAttributeSourceAdvisor();
-		aasa.setSecurityManager(securityManager());
-		return aasa;
-	}
-	*/
-	
-
 }

@@ -64,4 +64,11 @@ public class Users implements Serializable {
     public void setUsoftDel(Integer usoftDel) {
         this.usoftDel = usoftDel;
     }
+
+	@Override
+	public String toString() {
+		return "Users [uid=" + uid + ", uname=" + uname + ", upwd=" + upwd + ", salt=" + salt + ", tid=" + tid + "]";
+	}
+    
+    
 }
