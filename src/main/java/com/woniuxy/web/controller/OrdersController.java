@@ -2,6 +2,7 @@ package com.woniuxy.web.controller;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,18 +25,22 @@ public class OrdersController {
 	
 	
 	@GetMapping
-	public List<Orders> findAll(@RequestBody String tid){
+	public List<Orders> findAll( String tid){
+	   System.out.println(service.findAll(tid)+"================");
 		return service.findAll(tid);
 		
 	}
-	@GetMapping("{date}")
-	public List<Orders> findByStartTime(@PathVariable @RequestBody String date,@RequestBody String tid){
+	
+	
+	
+	@GetMapping("/findDay")
+	public List<Orders> findByStartTime( String date, String tid){
 		
 		return service.findByStartTime(date,tid);	
 	}
 	
 	@GetMapping("/money")
-	public Double findAllMoney(@RequestBody String date,@RequestBody String tid) {
+	public Double findAllMoney( String date, String tid) {
 		
 		return service.findAllMoney(date, tid);
 		
