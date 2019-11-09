@@ -276,7 +276,14 @@
 		= #{oid,jdbcType=VARCHAR}
 	</update>
 
-
+	<select id="findByTid" resultType="com.woniuxy.domain.Orders">
+		select * from orders o where o.fsid in(
+		select fs.fsid from show_venue sv join film_session fs
+		on
+		sv.svid = fs.svid
+		where tid = #{1}
+		)
+	</select>
 
 
 	<select id="findByStartTime"

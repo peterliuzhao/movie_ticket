@@ -32,4 +32,5 @@ public interface OrdersMapper {
 
 	List<Orders> findByStartTime(String date,String tid);
 	Double findAllMoney(String date,String tid);
+	List<Orders> findByTid(String tid);
 }

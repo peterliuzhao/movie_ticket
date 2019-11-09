@@ -45,9 +45,9 @@ public class OrdersServiceImpl implements IOrdersService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public List<Orders> findAll() {
+	public List<Orders> findAll(String tid) {
 
-		return mapper.selectByExample(null);
+		return mapper.findByTid(tid);
 	}
 	@Transactional(readOnly = true)
 	@Override

@@ -24,8 +24,8 @@ public class OrdersController {
 	
 	
 	@GetMapping
-	public List<Orders> findAll(){
-		return service.findAll();
+	public List<Orders> findAll(@RequestBody String tid){
+		return service.findAll(tid);
 		
 	}
 	@GetMapping("{date}")
