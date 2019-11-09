@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: MovieTicket
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: Administrator
+Built-By: Monster
 Implementation-Vendor-Id: com.woniuxy
-Build-Jdk: 1.8.0_11
+Build-Jdk: 1.8.0_66
 Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
  ot-starter-parent/MovieTicket
 Created-By: Maven Integration for Eclipse
