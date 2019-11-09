@@ -1,0 +1,14 @@
+server:
+  port: 8888
+    
+spring:
+  mvc:
+    view:
+      prefix: /
+      suffix: .jsp
+      
+  datasource:
+    url: jdbc:mysql://39.96.73.68:3306/movie_ticket?characterEncoding=utf8
+    username: root
+    password: Ljq5458674!
+    driver-class-name: com.mysql.jdbc.Driver
