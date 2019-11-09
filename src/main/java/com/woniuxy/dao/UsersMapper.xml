@@ -234,14 +234,4 @@
   
   
   
-  
-  
-  
-  
-  
-  
-  <select id="findTheaterComboOrdersByUserId" parameterType="java.lang.String" resultMap="rm">
-  
-  
-  </select>
 </mapper>

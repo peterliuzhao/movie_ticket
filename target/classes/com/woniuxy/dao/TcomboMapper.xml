@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.woniuxy.dao.UsersMapper">
-  <resultMap id="BaseResultMap" type="com.woniuxy.domain.Users">
-    <id column="uid" jdbcType="VARCHAR" property="uid" />
-    <result column="uname" jdbcType="VARCHAR" property="uname" />
-    <result column="upwd" jdbcType="VARCHAR" property="upwd" />
-    <result column="salt" jdbcType="VARCHAR" property="salt" />
-    <result column="tid" jdbcType="VARCHAR" property="tid" />
-    <result column="usoft_del" jdbcType="INTEGER" property="usoftDel" />
+<mapper namespace="com.woniuxy.dao.TcomboMapper">
+  <resultMap id="BaseResultMap" type="com.woniuxy.domain.Tcombo">
+    <id column="tcid" jdbcType="VARCHAR" property="tcid" />
+    <result column="tcname" jdbcType="VARCHAR" property="tcname" />
+    <result column="tcinfo" jdbcType="VARCHAR" property="tcinfo" />
+    <result column="tcprice" jdbcType="DOUBLE" property="tcprice" />
+    <result column="tctime" jdbcType="INTEGER" property="tctime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,15 +67,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    uid, uname, upwd, salt, tid, usoft_del
+    tcid, tcname, tcinfo, tcprice, tctime
   </sql>
-  <select id="selectByExample" parameterType="com.woniuxy.domain.UsersExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.woniuxy.domain.TcomboExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from users
+    from tcombo
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -87,96 +86,85 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from users
-    where uid = #{uid,jdbcType=VARCHAR}
+    from tcombo
+    where tcid = #{tcid,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from users
-    where uid = #{uid,jdbcType=VARCHAR}
+    delete from tcombo
+    where tcid = #{tcid,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.woniuxy.domain.UsersExample">
-    delete from users
+  <delete id="deleteByExample" parameterType="com.woniuxy.domain.TcomboExample">
+    delete from tcombo
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.woniuxy.domain.Users">
-    insert into users (uid, uname, upwd, 
-      salt, tid, usoft_del
-      )
-    values (#{uid,jdbcType=VARCHAR}, #{uname,jdbcType=VARCHAR}, #{upwd,jdbcType=VARCHAR}, 
-      #{salt,jdbcType=VARCHAR}, #{tid,jdbcType=VARCHAR}, #{usoftDel,jdbcType=INTEGER}
-      )
+  <insert id="insert" parameterType="com.woniuxy.domain.Tcombo">
+    insert into tcombo (tcid, tcname, tcinfo, 
+      tcprice, tctime)
+    values (#{tcid,jdbcType=VARCHAR}, #{tcname,jdbcType=VARCHAR}, #{tcinfo,jdbcType=VARCHAR}, 
+      #{tcprice,jdbcType=DOUBLE}, #{tctime,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.woniuxy.domain.Users">
-    insert into users
+  <insert id="insertSelective" parameterType="com.woniuxy.domain.Tcombo">
+    insert into tcombo
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="uid != null">
-        uid,
+      <if test="tcid != null">
+        tcid,
       </if>
-      <if test="uname != null">
-        uname,
+      <if test="tcname != null">
+        tcname,
       </if>
-      <if test="upwd != null">
-        upwd,
+      <if test="tcinfo != null">
+        tcinfo,
       </if>
-      <if test="salt != null">
-        salt,
+      <if test="tcprice != null">
+        tcprice,
       </if>
-      <if test="tid != null">
-        tid,
-      </if>
-      <if test="usoftDel != null">
-        usoft_del,
+      <if test="tctime != null">
+        tctime,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="uid != null">
-        #{uid,jdbcType=VARCHAR},
+      <if test="tcid != null">
+        #{tcid,jdbcType=VARCHAR},
       </if>
-      <if test="uname != null">
-        #{uname,jdbcType=VARCHAR},
+      <if test="tcname != null">
+        #{tcname,jdbcType=VARCHAR},
       </if>
-      <if test="upwd != null">
-        #{upwd,jdbcType=VARCHAR},
+      <if test="tcinfo != null">
+        #{tcinfo,jdbcType=VARCHAR},
       </if>
-      <if test="salt != null">
-        #{salt,jdbcType=VARCHAR},
+      <if test="tcprice != null">
+        #{tcprice,jdbcType=DOUBLE},
       </if>
-      <if test="tid != null">
-        #{tid,jdbcType=VARCHAR},
-      </if>
-      <if test="usoftDel != null">
-        #{usoftDel,jdbcType=INTEGER},
+      <if test="tctime != null">
+        #{tctime,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.woniuxy.domain.UsersExample" resultType="java.lang.Long">
-    select count(*) from users
+  <select id="countByExample" parameterType="com.woniuxy.domain.TcomboExample" resultType="java.lang.Long">
+    select count(*) from tcombo
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update users
+    update tcombo
     <set>
-      <if test="record.uid != null">
-        uid = #{record.uid,jdbcType=VARCHAR},
+      <if test="record.tcid != null">
+        tcid = #{record.tcid,jdbcType=VARCHAR},
       </if>
-      <if test="record.uname != null">
-        uname = #{record.uname,jdbcType=VARCHAR},
+      <if test="record.tcname != null">
+        tcname = #{record.tcname,jdbcType=VARCHAR},
       </if>
-      <if test="record.upwd != null">
-        upwd = #{record.upwd,jdbcType=VARCHAR},
+      <if test="record.tcinfo != null">
+        tcinfo = #{record.tcinfo,jdbcType=VARCHAR},
       </if>
-      <if test="record.salt != null">
-        salt = #{record.salt,jdbcType=VARCHAR},
+      <if test="record.tcprice != null">
+        tcprice = #{record.tcprice,jdbcType=DOUBLE},
       </if>
-      <if test="record.tid != null">
-        tid = #{record.tid,jdbcType=VARCHAR},
-      </if>
-      <if test="record.usoftDel != null">
-        usoft_del = #{record.usoftDel,jdbcType=INTEGER},
+      <if test="record.tctime != null">
+        tctime = #{record.tctime,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -184,46 +172,41 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update users
-    set uid = #{record.uid,jdbcType=VARCHAR},
-      uname = #{record.uname,jdbcType=VARCHAR},
-      upwd = #{record.upwd,jdbcType=VARCHAR},
-      salt = #{record.salt,jdbcType=VARCHAR},
-      tid = #{record.tid,jdbcType=VARCHAR},
-      usoft_del = #{record.usoftDel,jdbcType=INTEGER}
+    update tcombo
+    set tcid = #{record.tcid,jdbcType=VARCHAR},
+      tcname = #{record.tcname,jdbcType=VARCHAR},
+      tcinfo = #{record.tcinfo,jdbcType=VARCHAR},
+      tcprice = #{record.tcprice,jdbcType=DOUBLE},
+      tctime = #{record.tctime,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.woniuxy.domain.Users">
-    update users
+  <update id="updateByPrimaryKeySelective" parameterType="com.woniuxy.domain.Tcombo">
+    update tcombo
     <set>
-      <if test="uname != null">
-        uname = #{uname,jdbcType=VARCHAR},
+      <if test="tcname != null">
+        tcname = #{tcname,jdbcType=VARCHAR},
       </if>
-      <if test="upwd != null">
-        upwd = #{upwd,jdbcType=VARCHAR},
+      <if test="tcinfo != null">
+        tcinfo = #{tcinfo,jdbcType=VARCHAR},
       </if>
-      <if test="salt != null">
-        salt = #{salt,jdbcType=VARCHAR},
+      <if test="tcprice != null">
+        tcprice = #{tcprice,jdbcType=DOUBLE},
       </if>
-      <if test="tid != null">
-        tid = #{tid,jdbcType=VARCHAR},
-      </if>
-      <if test="usoftDel != null">
-        usoft_del = #{usoftDel,jdbcType=INTEGER},
+      <if test="tctime != null">
+        tctime = #{tctime,jdbcType=INTEGER},
       </if>
     </set>
-    where uid = #{uid,jdbcType=VARCHAR}
+    where tcid = #{tcid,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.woniuxy.domain.Users">
-    update users
-    set uname = #{uname,jdbcType=VARCHAR},
-      upwd = #{upwd,jdbcType=VARCHAR},
-      salt = #{salt,jdbcType=VARCHAR},
-      tid = #{tid,jdbcType=VARCHAR},
-      usoft_del = #{usoftDel,jdbcType=INTEGER}
-    where uid = #{uid,jdbcType=VARCHAR}
+  <update id="updateByPrimaryKey" parameterType="com.woniuxy.domain.Tcombo">
+    update tcombo
+    set tcname = #{tcname,jdbcType=VARCHAR},
+      tcinfo = #{tcinfo,jdbcType=VARCHAR},
+      tcprice = #{tcprice,jdbcType=DOUBLE},
+      tctime = #{tctime,jdbcType=INTEGER}
+    where tcid = #{tcid,jdbcType=VARCHAR}
   </update>
   
   
@@ -234,4 +217,13 @@
   
   
   
+  
+  
+  <select id="findTheaterComboOrdersByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select * from tcombo where tcombo.tcid = (
+		select tcid from users us join theater_combo_orders tco on us.tid = tco.tid 
+		where us.uname = #{uname}
+		)
+  </select>
+
 </mapper>

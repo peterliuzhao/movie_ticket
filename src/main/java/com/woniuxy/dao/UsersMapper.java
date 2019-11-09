@@ -1,5 +1,6 @@
 package com.woniuxy.dao;
 
+import com.woniuxy.domain.Tcombo;
 import com.woniuxy.domain.Users;
 import com.woniuxy.domain.UsersExample;
 import java.util.List;
@@ -28,8 +29,4 @@ public interface UsersMapper {
 
     int updateByPrimaryKey(Users record);
     
-     
-    
-    
-    String findTheaterComboOrdersByUserId(String uid);
 }
