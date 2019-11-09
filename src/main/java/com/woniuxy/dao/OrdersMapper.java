@@ -30,7 +30,7 @@ public interface OrdersMapper {
 
 	int updateByPrimaryKey(Orders record);
 
-	List<Orders> findByStartTime(String date,String tid);
-	Double findAllMoney(String date,String tid);
-	List<Orders> findByTid(String tid);
+	List<Orders> findByStartTime(@Param("date") String date,@Param("tid")  String tid);
+	Double findAllMoney(@Param("date") String date,@Param("tid")  String tid);
+	List<Orders> findByTid(@Param("tid") String tid);
 }

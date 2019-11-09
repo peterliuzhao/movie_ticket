@@ -225,4 +225,23 @@
       usoft_del = #{usoftDel,jdbcType=INTEGER}
     where uid = #{uid,jdbcType=VARCHAR}
   </update>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <select id="findTheaterComboOrdersByUserId" parameterType="java.lang.String" resultType="java.lang.Long">
+  
+  
+  </select>
 </mapper>

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,19 +32,18 @@ public class CustomerController {
 	}
 	
 	@PostMapping
-	public void save(Customer cus) {
-		//service.save(cus);
-		System.out.println(cus);
+	public void save(@RequestBody Customer cus) {
+		service.save(cus);
 	}
 	
 	@PutMapping
-	public void update(Customer cus) {
+	public void update(@RequestBody Customer cus) {
 		service.update(cus);
 	}
 	
 	@DeleteMapping("{cid}")
 	public void delete(@PathVariable String cid) {
-		//service.delete(cid);
-		System.out.println(cid);
+		service.delete(cid);
+		System.out.println("CustomerController.delete()~~~"+cid);
 	}
 }

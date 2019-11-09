@@ -276,35 +276,34 @@
 		= #{oid,jdbcType=VARCHAR}
 	</update>
 
-	<select id="findByTid" resultType="com.woniuxy.domain.Orders">
+	<select id="findByTid" resultMap="BaseResultMap" >
 		select * from orders o where o.fsid in(
 		select fs.fsid from show_venue sv join film_session fs
 		on
 		sv.svid = fs.svid
-		where tid = #{1}
+		where tid = #{tid}
 		)
 	</select>
 
 
-	<select id="findByStartTime"
-		resultType="com.woniuxy.domain.Orders">
-		select * from orders o where ostart_time like '${1}%' and
+	<select id="findByStartTime" resultMap="BaseResultMap">
+		select * from orders o where ostart_time like '${date}%' and
 		o.fsid in(
 		select fs.fsid from show_venue sv join film_session fs
 		on
 		sv.svid = fs.svid
-		where tid = #{2}
+		where tid = #{tid}
 		)
 	</select>
 
 	<select id="findAllMoney" resultType="java.lang.Double">
 		select SUM(ototalprice)
-		totalMoney from orders o where ostart_time like '${1}%' and o.fsid in(
+		totalMoney from orders o where ostart_time like '${date}%' and o.fsid in(
 		select fs.fsid from show_venue sv join film_session fs
 		on sv.svid =
 		fs.svid
-		where tid = #{2}
-		) group by '${1}%'
+		where tid = #{tid}
+		) group by '${date}%'
 	</select>
 
 
