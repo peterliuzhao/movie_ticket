@@ -13,15 +13,15 @@ public class AppConfig implements WebMvcConfigurer {
 //	public void addInterceptors(InterceptorRegistry registry) {
 //		registry.addInterceptor(new CORSInterceptor()).addPathPatterns("/**");
 //	}
-//
-//	@Override
-//	public void addCorsMappings(CorsRegistry registry) {
-//		registry.addMapping("/**")
-//        .allowedOrigins("*")
-//        .allowedMethods("POST","GET","PUT","DELETE", "OPTIONS")
-//        .allowedHeaders("*")
-//        .allowCredentials(true);  // 允许客户端ajax请求携带cookie;
-//	}
+
+	@Override
+	public void addCorsMappings(CorsRegistry registry) {
+		registry.addMapping("/**")
+        .allowedOrigins("*")
+        .allowedMethods("POST","GET","PUT","DELETE", "OPTIONS")
+        .allowedHeaders("*")
+        .allowCredentials(true);  // 允许客户端ajax请求携带cookie;
+	}
 
 }
    

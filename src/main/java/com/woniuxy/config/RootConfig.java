@@ -90,7 +90,7 @@ public class RootConfig {
 //		map.put("/users.jsp", "roles[admin]");
 //		map.put("/cars.jsp", "roles[guest]");
         
-		map.put("/**", "anon");//"authc");
+//		map.put("/**", "anon");//"authc");
 		sf.setFilterChainDefinitionMap(map);
 		return sf;
 	}
