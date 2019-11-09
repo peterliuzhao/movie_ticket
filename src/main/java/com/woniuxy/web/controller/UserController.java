@@ -88,10 +88,12 @@ public class UserController {
 			map.put("username", subject.getPrincipal());
 //			req.getSession().setAttribute("uid", service.findUserByUname(username).getUid().toString());
 		} catch (AuthenticationException e) {
+			System.out.println("UserController.login()---------------------------");
 			map.put("status", 500);
 			map.put("message", "登录失败，可能是用户名或密码错误");
 		}
 
+		System.out.println(map+" map=============");
 		return map;
 	}
 

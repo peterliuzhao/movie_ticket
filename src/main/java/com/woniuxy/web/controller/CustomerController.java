@@ -32,7 +32,8 @@ public class CustomerController {
 	
 	@PostMapping
 	public void save(Customer cus) {
-		service.save(cus);
+		//service.save(cus);
+		System.out.println(cus);
 	}
 	
 	@PutMapping
