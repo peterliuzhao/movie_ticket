@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniuxy.dao.FilmTypeMapper">
+  <resultMap id="BaseResultMap" type="com.woniuxy.domain.FilmType">
+    <id column="ftid" jdbcType="VARCHAR" property="ftid" />
+    <result column="ftname" jdbcType="VARCHAR" property="ftname" />
+    <result column="ftinfo" jdbcType="VARCHAR" property="ftinfo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ftid, ftname, ftinfo
+  </sql>
+  <select id="selectByExample" parameterType="com.woniuxy.domain.FilmTypeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from film_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from film_type
+    where ftid = #{ftid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from film_type
+    where ftid = #{ftid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.woniuxy.domain.FilmTypeExample">
+    delete from film_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.woniuxy.domain.FilmType">
+    insert into film_type (ftid, ftname, ftinfo
+      )
+    values (#{ftid,jdbcType=VARCHAR}, #{ftname,jdbcType=VARCHAR}, #{ftinfo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.woniuxy.domain.FilmType">
+    insert into film_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ftid != null">
+        ftid,
+      </if>
+      <if test="ftname != null">
+        ftname,
+      </if>
+      <if test="ftinfo != null">
+        ftinfo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ftid != null">
+        #{ftid,jdbcType=VARCHAR},
+      </if>
+      <if test="ftname != null">
+        #{ftname,jdbcType=VARCHAR},
+      </if>
+      <if test="ftinfo != null">
+        #{ftinfo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.woniuxy.domain.FilmTypeExample" resultType="java.lang.Long">
+    select count(*) from film_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update film_type
+    <set>
+      <if test="record.ftid != null">
+        ftid = #{record.ftid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ftname != null">
+        ftname = #{record.ftname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ftinfo != null">
+        ftinfo = #{record.ftinfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update film_type
+    set ftid = #{record.ftid,jdbcType=VARCHAR},
+      ftname = #{record.ftname,jdbcType=VARCHAR},
+      ftinfo = #{record.ftinfo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.woniuxy.domain.FilmType">
+    update film_type
+    <set>
+      <if test="ftname != null">
+        ftname = #{ftname,jdbcType=VARCHAR},
+      </if>
+      <if test="ftinfo != null">
+        ftinfo = #{ftinfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ftid = #{ftid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.woniuxy.domain.FilmType">
+    update film_type
+    set ftname = #{ftname,jdbcType=VARCHAR},
+      ftinfo = #{ftinfo,jdbcType=VARCHAR}
+    where ftid = #{ftid,jdbcType=VARCHAR}
+  </update>
+</mapper>
