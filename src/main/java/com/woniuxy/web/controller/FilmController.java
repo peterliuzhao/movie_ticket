@@ -86,7 +86,7 @@ public class FilmController {
 			@GetMapping("find/{fid}")
 			@ResponseBody
 			public Film findOne(String  fid) {
-				System.out.println("查了一个~~~~~~");
+				System.out.println("查了一个~~~zzzz~~~");
 				return service.findOne(fid);
 			}
 	

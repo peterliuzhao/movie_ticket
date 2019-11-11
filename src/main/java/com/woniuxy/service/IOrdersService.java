@@ -18,7 +18,7 @@ public interface IOrdersService {
 
 	List<Orders> findByStartTime(String date, String tid);
 
-	List<Orders>  findAllMoney(String tid);
+	List<Orders>  findTenMoney(String tid);
 
 	 Orders findDayMoney(String date, String tid);
 }

@@ -43,10 +43,10 @@ public class OrdersController {
 		return service.findDayMoney(date, tid);	
 	}
 	
-	@GetMapping("/allmoney")
+	@GetMapping("/tenmoney")
 	public List<Orders> findAllMoney(String tid) {
-		System.out.println(service.findAllMoney("1"));
-		return service.findAllMoney(tid);	
+		
+		return service.findTenMoney(tid);	
 	}
 	
 	
