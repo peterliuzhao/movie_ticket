@@ -1,11 +1,10 @@
 package com.woniuxy.web.controller;
 
 import java.util.List;
+import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,12 +38,17 @@ public class OrdersController {
 		return service.findByStartTime(date,tid);	
 	}
 	
-	@GetMapping("/money")
-	public Double findAllMoney( String date, String tid) {
-		
-		return service.findAllMoney(date, tid);
-		
+	@GetMapping("/daymoney")
+	public Orders findDayMoney( String date, String tid) {
+		return service.findDayMoney(date, tid);	
 	}
+	
+	@GetMapping("/allmoney")
+	public List<Orders> findAllMoney(String tid) {
+		System.out.println(service.findAllMoney("1"));
+		return service.findAllMoney(tid);	
+	}
+	
 	
 	@PostMapping
 	public void save(@RequestBody Orders order) {

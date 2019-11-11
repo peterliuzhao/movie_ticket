@@ -17,8 +17,39 @@ public class Orders implements Serializable {
     private String cid;
 
     private String fsid;
+    
+    
+    //聚合函数查询
+    private String dates;
+    private Double sum;
+    
+    
 
-    private static final long serialVersionUID = 1L;
+    
+    
+    public String getDates() {
+		return dates;
+	}
+
+	public void setDates(String dates) {
+		this.dates = dates;
+	}
+
+	
+	
+
+	public Double getSum() {
+		return sum;
+	}
+
+	public void setSum(Double sum) {
+		this.sum = sum;
+	}
+
+
+
+
+	private static final long serialVersionUID = 1L;
 
     public String getOid() {
         return oid;

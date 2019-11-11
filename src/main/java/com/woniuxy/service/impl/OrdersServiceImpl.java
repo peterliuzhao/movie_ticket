@@ -60,9 +60,15 @@ public class OrdersServiceImpl implements IOrdersService {
 	
 	@Transactional(readOnly = true)
 	@Override
-	public Double findAllMoney(String date, String tid) {
+	public Orders findDayMoney(String date, String tid) {
 		
-		return mapper.findAllMoney(date, tid);
+		return mapper.findDayMoney(date, tid);
+	}
+
+	@Override
+	public List<Orders> findAllMoney(String tid) {
+		List<Orders> allMoney = mapper.findAllMoney(tid);
+		return allMoney;
 	}
 
 }
