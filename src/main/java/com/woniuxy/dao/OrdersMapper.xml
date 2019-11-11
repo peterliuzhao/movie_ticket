@@ -314,12 +314,12 @@
 		) group by '${date}%'
 	</select>
 
-	<select id="findAllMoney" resultMap="BaseResultMap">
+	<select id="findTenMoney" resultMap="BaseResultMap">
 		select DATE_FORMAT(ostart_time,'%y-%m-%d') dates, SUM(ototalprice) sum from orders
 		o
 		where o.fsid in(select fs.fsid from show_venue sv join film_session fs
 		on sv.svid = fs.svid
-		where tid = #{tid}) GROUP BY dates
+		where tid = #{tid}) GROUP BY dates order by dates desc limit 0,10
 	</select>
 
 

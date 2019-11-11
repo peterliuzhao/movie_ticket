@@ -66,8 +66,8 @@ public class OrdersServiceImpl implements IOrdersService {
 	}
 
 	@Override
-	public List<Orders> findAllMoney(String tid) {
-		List<Orders> allMoney = mapper.findAllMoney(tid);
+	public List<Orders> findTenMoney(String tid) {
+		List<Orders> allMoney = mapper.findTenMoney(tid);
 		return allMoney;
 	}
 

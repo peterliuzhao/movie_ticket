@@ -33,6 +33,6 @@ public interface OrdersMapper {
 
 	List<Orders> findByStartTime(@Param("date") String date,@Param("tid")  String tid);
 	Orders findDayMoney(@Param("date") String date,@Param("tid")  String tid);
-	List<Orders> findAllMoney(@Param("tid")  String tid);
+	List<Orders> findTenMoney(@Param("tid")  String tid);
 	List<Orders> findByTid(@Param("tid") String tid);
 }
