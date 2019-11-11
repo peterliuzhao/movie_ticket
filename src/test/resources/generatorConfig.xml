@@ -45,7 +45,7 @@
 			<property name="enableSubPackages" value="false" />
 		</javaClientGenerator>
 		<!-- 指定数据库表 -->
-		<table tableName="tcombo"></table>
+		<table tableName="film_type"></table>
 		<!-- <table tableName="emp"></table> -->
 	</context>
 </generatorConfiguration>
