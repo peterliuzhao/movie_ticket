@@ -12,7 +12,7 @@ import com.woniuxy.service.IFilmTypeService;
 import com.woniuxy.util.AccountUtils;
 
 @Service
-public class FilmTypeImpl implements IFilmTypeService{
+public class FilmTypeServiceImpl implements IFilmTypeService{
 	
 
 	@Autowired
