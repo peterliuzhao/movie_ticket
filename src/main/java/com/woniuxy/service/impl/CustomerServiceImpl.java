@@ -1,6 +1,7 @@
 package com.woniuxy.service.impl;
 
 
+
 import java.util.Collections;
 import java.util.List;
 
@@ -47,5 +48,13 @@ public class CustomerServiceImpl implements ICustomerService {
 		// TODO Auto-generated method stub
 		mapper.updateByPrimaryKey(cus);
 	}
+
+	@Override
+	public List<Customer> findOne(String field, String content, String tid) {
+		List<Customer> target=mapper.findOne(field, content,tid);
+		return target;
+	}
+
+	
 
 }

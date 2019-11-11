@@ -1,6 +1,7 @@
 package com.woniuxy.web.controller;
 
 
+
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +30,14 @@ public class CustomerController {
 	public List<Customer> findByTid(String tid){
 		List<Customer> list = service.findByTid(tid);
 		return list;
+	}
+	
+	@GetMapping
+	public List<Customer> findOne(String field,String content,String tid) {
+		
+		List<Customer>target = service.findOne(field,content,tid);
+		System.out.println("CustomerController.findOne()"+target.get(0).getCphone());
+		return target;
 	}
 	
 	@PostMapping
