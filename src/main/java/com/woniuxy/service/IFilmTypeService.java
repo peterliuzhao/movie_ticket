@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.woniuxy.domain.FilmType;
 
-public interface IFilmType {
+public interface IFilmTypeService {
 	public void save(FilmType ft);
 	public void delete(String ftid);
 	public void update(FilmType ft);

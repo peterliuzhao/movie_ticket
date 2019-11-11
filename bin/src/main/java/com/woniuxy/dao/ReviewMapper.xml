@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniuxy.dao.ReviewMapper">
+  <resultMap id="BaseResultMap" type="com.woniuxy.domain.Review">
+    <id column="rwid" jdbcType="VARCHAR" property="rwid" />
+    <result column="rwtime" jdbcType="TIMESTAMP" property="rwtime" />
+    <result column="uid" jdbcType="VARCHAR" property="uid" />
+    <result column="rw_parentId" jdbcType="VARCHAR" property="rwParentid" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.woniuxy.domain.Review">
+    <result column="rwtext" jdbcType="LONGVARCHAR" property="rwtext" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    rwid, rwtime, uid, rw_parentId
+  </sql>
+  <sql id="Blob_Column_List">
+    rwtext
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.woniuxy.domain.ReviewExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from review
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.woniuxy.domain.ReviewExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from review
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from review
+    where rwid = #{rwid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from review
+    where rwid = #{rwid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.woniuxy.domain.ReviewExample">
+    delete from review
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.woniuxy.domain.Review">
+    insert into review (rwid, rwtime, uid, 
+      rw_parentId, rwtext)
+    values (#{rwid,jdbcType=VARCHAR}, #{rwtime,jdbcType=TIMESTAMP}, #{uid,jdbcType=VARCHAR}, 
+      #{rwParentid,jdbcType=VARCHAR}, #{rwtext,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.woniuxy.domain.Review">
+    insert into review
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rwid != null">
+        rwid,
+      </if>
+      <if test="rwtime != null">
+        rwtime,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="rwParentid != null">
+        rw_parentId,
+      </if>
+      <if test="rwtext != null">
+        rwtext,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rwid != null">
+        #{rwid,jdbcType=VARCHAR},
+      </if>
+      <if test="rwtime != null">
+        #{rwtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="rwParentid != null">
+        #{rwParentid,jdbcType=VARCHAR},
+      </if>
+      <if test="rwtext != null">
+        #{rwtext,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.woniuxy.domain.ReviewExample" resultType="java.lang.Long">
+    select count(*) from review
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update review
+    <set>
+      <if test="record.rwid != null">
+        rwid = #{record.rwid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rwtime != null">
+        rwtime = #{record.rwtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.uid != null">
+        uid = #{record.uid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rwParentid != null">
+        rw_parentId = #{record.rwParentid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rwtext != null">
+        rwtext = #{record.rwtext,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update review
+    set rwid = #{record.rwid,jdbcType=VARCHAR},
+      rwtime = #{record.rwtime,jdbcType=TIMESTAMP},
+      uid = #{record.uid,jdbcType=VARCHAR},
+      rw_parentId = #{record.rwParentid,jdbcType=VARCHAR},
+      rwtext = #{record.rwtext,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update review
+    set rwid = #{record.rwid,jdbcType=VARCHAR},
+      rwtime = #{record.rwtime,jdbcType=TIMESTAMP},
+      uid = #{record.uid,jdbcType=VARCHAR},
+      rw_parentId = #{record.rwParentid,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.woniuxy.domain.Review">
+    update review
+    <set>
+      <if test="rwtime != null">
+        rwtime = #{rwtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="rwParentid != null">
+        rw_parentId = #{rwParentid,jdbcType=VARCHAR},
+      </if>
+      <if test="rwtext != null">
+        rwtext = #{rwtext,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where rwid = #{rwid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.woniuxy.domain.Review">
+    update review
+    set rwtime = #{rwtime,jdbcType=TIMESTAMP},
+      uid = #{uid,jdbcType=VARCHAR},
+      rw_parentId = #{rwParentid,jdbcType=VARCHAR},
+      rwtext = #{rwtext,jdbcType=LONGVARCHAR}
+    where rwid = #{rwid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.woniuxy.domain.Review">
+    update review
+    set rwtime = #{rwtime,jdbcType=TIMESTAMP},
+      uid = #{uid,jdbcType=VARCHAR},
+      rw_parentId = #{rwParentid,jdbcType=VARCHAR}
+    where rwid = #{rwid,jdbcType=VARCHAR}
+  </update>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <select id="findAll" resultType="java.util.Map">
+	select d.uid uid,d.uname uname,d.tid tid,d.rwid rwid,d.rwtext rwtext,d.rwtime rwtime,d.rw_parentId rw_parentId,d2.uid uid2,d2.uname uname2,d2.rwid rwid2,d2.rwtext rwtext2,d2.rwtime rwtime2,d2.rw_parentId rw_parentId 
+		FROM	
+		(select u.uid,u.uname,u.tid,r.rwid,r.rwtext,r.rwtime,r.rw_parentId from users u JOIN review r
+			on u.uid = r.uid) d
+			LEFT JOIN
+		(select u2.uid,u2.uname,u2.tid,r2.rwid,r2.rwtext,r2.rwtime,r2.rw_parentId from users u2 JOIN review r2
+			on u2.uid = r2.uid
+			WHERE r2.rw_parentId IS NOT NULL) d2
+			ON d.rw_parentId IS NULL AND d.rwid = d2.rw_parentId   
+  </select>
+</mapper>
