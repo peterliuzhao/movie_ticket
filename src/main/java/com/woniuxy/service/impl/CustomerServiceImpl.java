@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.woniuxy.dao.CustomerMapper;
 import com.woniuxy.domain.Customer;
 import com.woniuxy.service.ICustomerService;
-import com.woniuxy.util.AccountUtils;
 @Service
 public class CustomerServiceImpl implements ICustomerService {
 
@@ -31,7 +30,6 @@ public class CustomerServiceImpl implements ICustomerService {
 	@Override
 	public void save(Customer cus) {
 		// TODO Auto-generated method stub
-		cus.setCid(AccountUtils.uuid());
 		mapper.insertSelective(cus);
 	}
 	
