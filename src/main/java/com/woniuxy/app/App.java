@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication(scanBasePackages = "com.woniuxy")
 @MapperScan("com.woniuxy.dao")
-//@EnableTransactionManagement
+//@EnableTransactionManagement 测试子分支
 public class App { 
 	public static void main(String[] args) {  
 		SpringApplication.run(App.class, args);            
