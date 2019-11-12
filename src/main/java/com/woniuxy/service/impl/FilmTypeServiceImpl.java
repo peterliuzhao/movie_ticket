@@ -8,11 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.woniuxy.dao.FilmTypeMapper;
 import com.woniuxy.domain.FilmType;
-import com.woniuxy.service.IFilmType;
+import com.woniuxy.service.IFilmTypeService;
 import com.woniuxy.util.AccountUtils;
 
 @Service
-public class FilmTypeImpl implements IFilmType{
+public class FilmTypeServiceImpl implements IFilmTypeService{
 	
 
 	@Autowired

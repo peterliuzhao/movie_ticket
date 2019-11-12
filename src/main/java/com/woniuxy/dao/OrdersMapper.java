@@ -1,6 +1,7 @@
 package com.woniuxy.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -31,6 +32,7 @@ public interface OrdersMapper {
 	int updateByPrimaryKey(Orders record);
 
 	List<Orders> findByStartTime(@Param("date") String date,@Param("tid")  String tid);
-	Double findAllMoney(@Param("date") String date,@Param("tid")  String tid);
+	Orders findDayMoney(@Param("date") String date,@Param("tid")  String tid);
+	List<Orders> findTenMoney(@Param("tid")  String tid);
 	List<Orders> findByTid(@Param("tid") String tid);
 }

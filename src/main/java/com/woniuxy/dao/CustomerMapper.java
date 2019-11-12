@@ -1,6 +1,7 @@
 package com.woniuxy.dao;
 
 
+
 import com.woniuxy.domain.Customer;
 import com.woniuxy.domain.CustomerExample;
 import java.util.List;
@@ -32,4 +33,6 @@ public interface CustomerMapper {
     //自定义查�?
     
     List<Customer> findByTid(String tid);
+    List<Customer> findOne(@Param("field") String field,@Param("content") String content,@Param("tid") String tid);
+
 }

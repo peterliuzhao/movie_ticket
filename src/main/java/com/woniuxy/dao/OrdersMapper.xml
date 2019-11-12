@@ -13,6 +13,8 @@
 		<result column="ostatus" jdbcType="INTEGER" property="ostatus" />
 		<result column="cid" jdbcType="VARCHAR" property="cid" />
 		<result column="fsid" jdbcType="VARCHAR" property="fsid" />
+		<result column="dates" jdbcType="VARCHAR" property="dates"/>
+		<result column="sum" jdbcType="DOUBLE" property="sum"/>
 	</resultMap>
 	<sql id="Example_Where_Clause">
 		<where>
@@ -276,9 +278,11 @@
 		= #{oid,jdbcType=VARCHAR}
 	</update>
 
-	<select id="findByTid" resultMap="BaseResultMap" >
-		select * from orders o where o.fsid in(
-		select fs.fsid from show_venue sv join film_session fs
+	<select id="findByTid" resultMap="BaseResultMap">
+		select * from
+		orders o where o.fsid in(
+		select fs.fsid from show_venue sv join
+		film_session fs
 		on
 		sv.svid = fs.svid
 		where tid = #{tid}
@@ -287,23 +291,35 @@
 
 
 	<select id="findByStartTime" resultMap="BaseResultMap">
-		select * from orders o where ostart_time like '${date}%' and
+		select * from orders o
+		where ostart_time like '${date}%' and
 		o.fsid in(
-		select fs.fsid from show_venue sv join film_session fs
+		select fs.fsid from
+		show_venue sv join film_session fs
 		on
 		sv.svid = fs.svid
-		where tid = #{tid}
+		where tid =
+		#{tid}
 		)
 	</select>
 
-	<select id="findAllMoney" resultType="java.lang.Double">
-		select SUM(ototalprice)
-		totalMoney from orders o where ostart_time like '${date}%' and o.fsid in(
+	<select id="findDayMoney" resultMap="BaseResultMap">
+		select SUM(ototalprice) sum
+		totalMoney from orders o where ostart_time like '${date}%' and o.fsid
+		in(
 		select fs.fsid from show_venue sv join film_session fs
 		on sv.svid =
 		fs.svid
 		where tid = #{tid}
 		) group by '${date}%'
+	</select>
+
+	<select id="findTenMoney" resultMap="BaseResultMap">
+		select DATE_FORMAT(ostart_time,'%y-%m-%d') dates, SUM(ototalprice) sum from orders
+		o
+		where o.fsid in(select fs.fsid from show_venue sv join film_session fs
+		on sv.svid = fs.svid
+		where tid = #{tid}) GROUP BY dates order by dates desc limit 0,10
 	</select>
 
 

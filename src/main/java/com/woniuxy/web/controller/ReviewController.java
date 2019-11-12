@@ -32,9 +32,8 @@ public class ReviewController {
 	
 	@DeleteMapping("{rwid}") 
 	public void delete(@PathVariable String rwid) {
-		service.delete(rwid); 
+		service.delete(rwid);
 	}
-	
 	@PutMapping
 	public void update(Review review) {
 		service.update(review);

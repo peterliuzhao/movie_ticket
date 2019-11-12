@@ -12,22 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.authz.annotation.Logical;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
-import org.apache.shiro.authz.annotation.RequiresRoles;
-import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.woniuxy.domain.Users;
 import com.woniuxy.service.IUserService;
@@ -48,17 +38,9 @@ public class UserController {
 		Map<String, Object> map = new HashMap<>();
 		if (user.getUname()!=null&&user.getUpwd()!=null) {
 			try {
-				String password_salt = AccountUtils.uuid();
-				String password = AccountUtils.encrypt(user.getUpwd(), password_salt);
-				user.setUpwd(password);
-				user.setSalt(password_salt);
-				
-				String userId = AccountUtils.uuid();
-				user.setUid(userId);
-				
+				service.save(user);
 				map.put("status", 200);
 				map.put("message", "注册成功");
-				service.save(user);
 			} catch (Exception e) {
 				e.printStackTrace();
 				map.put("status", 500);
@@ -92,7 +74,7 @@ public class UserController {
 			map.put("status", 500);
 			map.put("message", "登录失败，可能是用户名或密码错误");
 		}
-
+        
 		System.out.println(map+" map=============");
 		return map;
 	}

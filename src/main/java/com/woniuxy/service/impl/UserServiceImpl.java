@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.woniuxy.dao.UsersMapper;
 import com.woniuxy.domain.Users;
 import com.woniuxy.service.IUserService;
+import com.woniuxy.util.AccountUtils;
 
 
 @Service
@@ -20,6 +21,14 @@ public class UserServiceImpl implements IUserService{
 	@Transactional     
 	@Override
 	public void save(Users u) {
+		String password_salt = AccountUtils.uuid();
+		String password = AccountUtils.encrypt(u.getUpwd(), password_salt);
+		u.setUpwd(password);
+		u.setSalt(password_salt);
+		
+		String userId = AccountUtils.uuid();
+		u.setUid(userId);
+		
 		mapper.insertSelective(u);
 	}
 

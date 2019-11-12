@@ -1,6 +1,7 @@
 package com.woniuxy.service.impl;
 
 
+
 import java.util.Collections;
 import java.util.List;
 
@@ -11,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.woniuxy.dao.CustomerMapper;
 import com.woniuxy.domain.Customer;
 import com.woniuxy.service.ICustomerService;
-import com.woniuxy.util.AccountUtils;
 @Service
 public class CustomerServiceImpl implements ICustomerService {
 
@@ -30,7 +30,6 @@ public class CustomerServiceImpl implements ICustomerService {
 	@Override
 	public void save(Customer cus) {
 		// TODO Auto-generated method stub
-		cus.setCid(AccountUtils.uuid());
 		mapper.insertSelective(cus);
 	}
 	
@@ -47,5 +46,13 @@ public class CustomerServiceImpl implements ICustomerService {
 		// TODO Auto-generated method stub
 		mapper.updateByPrimaryKey(cus);
 	}
+
+	@Override
+	public List<Customer> findOne(String field, String content, String tid) {
+		List<Customer> target=mapper.findOne(field, content,tid);
+		return target;
+	}
+
+	
 
 }
