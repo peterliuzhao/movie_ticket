@@ -74,15 +74,23 @@ public class RootConfig {
 	public ShiroFilterFactoryBean shiroFilter() {
 		ShiroFilterFactoryBean sf = new ShiroFilterFactoryBean();
 		sf.setSecurityManager(securityManager());
-		sf.setLoginUrl("/index.jsp");
-		sf.setUnauthorizedUrl("/unauthorized.jsp");
 		Map<String, String> map = new HashMap<>();
+		
+		map.put("/users/login","anon");
+		map.put("/users/isAuthenticated","anon");
+		map.put("/users/logout", "anon");
+		map.put("/**", "authc");
+//		map.put("/**", "anon");
+		   
+//		sf.setLoginUrl("/index.jsp");
+//		sf.setUnauthorizedUrl("/unauthorized.jsp");
 
-		// 自定义shiro过滤器的配置
-        Map<String, Filter> filter = new HashMap<>();
-        filter.put("custom", new ShiroUserFilter());
-        sf.setFilters(filter);
-        map.put("/**","custom");
+		
+//		// 自定义shiro过滤器的配置
+//        Map<String, Filter> filter = new HashMap<>();
+//        filter.put("custom", new ShiroUserFilter());
+//        sf.setFilters(filter);
+//        map.put("/**","custom");
             
 //		map.put("/index.jsp", "anon");
 //		map.put("/users/login", "anon");   
@@ -94,5 +102,7 @@ public class RootConfig {
 		sf.setFilterChainDefinitionMap(map);
 		return sf;
 	}
+	
+	
 	
 }

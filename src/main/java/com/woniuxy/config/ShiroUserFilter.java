@@ -30,6 +30,7 @@ public class ShiroUserFilter extends BasicHttpAuthenticationFilter{
         response.setHeader("Access-Control-Allow-Methods", "*");
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Allow-Headers", "*");
+        
 //        response.setHeader("Access-Control-Allow-Headers", request.getHeader("Access-Control-Request-Headers"));
 //        //防止乱码，适用于传输JSON数据
 //        response.setHeader("Content-Type","application/json;charset=UTF-8");

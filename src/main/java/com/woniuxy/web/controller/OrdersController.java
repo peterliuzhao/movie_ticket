@@ -1,7 +1,6 @@
 package com.woniuxy.web.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +33,7 @@ public class OrdersController {
 	
 	@GetMapping("/findDay")
 	public List<Orders> findByStartTime( String date, String tid){
-		
+		System.out.println("OrdersController.findByStartTime()");
 		return service.findByStartTime(date,tid);	
 	}
 	

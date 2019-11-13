@@ -7,8 +7,19 @@ spring:
       prefix: /
       suffix: .jsp
       
-  datasource:
-    url: jdbc:mysql://39.96.73.68:3306/movie_ticket?characterEncoding=utf8
-    username: root
-    password: Ljq5458674!
-    driver-class-name: com.mysql.jdbc.Driver
+datasource:
+  url: jdbc:mysql://39.96.73.68:3306/movie_ticket?characterEncoding=utf8
+  username: root
+  password: Ljq5458674!
+  driver-class-name: com.mysql.jdbc.Driver
+    
+logging:
+  level:
+    com:
+      woniuxy:
+        dao:
+          mapper: debug
+        
+mybatis:
+  config-location: classpath:mybatisConfig.xml
+    
