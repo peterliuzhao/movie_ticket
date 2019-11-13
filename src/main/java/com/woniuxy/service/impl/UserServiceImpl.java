@@ -25,7 +25,7 @@ public class UserServiceImpl implements IUserService{
 		String password = AccountUtils.encrypt(u.getUpwd(), password_salt);
 		u.setUpwd(password);
 		u.setSalt(password_salt);
-		
+		u.setUsoftDel(1);
 		String userId = AccountUtils.uuid();
 		u.setUid(userId);
 		
