@@ -22,6 +22,7 @@ public class ReviewServiceImpl implements IReviewService {
 	@Override
 	public void save(Review review) {
 		review.setRwid(AccountUtils.uuid());
+		review.setUid("6fa1b7bf917e4fec8871e0860b89e6ae");
 		mapper.insertSelective(review);
 	}
 
