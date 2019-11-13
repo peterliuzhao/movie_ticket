@@ -44,13 +44,19 @@ public class CustomerServiceImpl implements ICustomerService {
 	@Override
 	public void update(Customer cus) {
 		// TODO Auto-generated method stub
-		mapper.updateByPrimaryKey(cus);
+		mapper.updateByPrimaryKeySelective(cus);
 	}
 
 	@Override
-	public List<Customer> findOne(String field, String content, String tid) {
+	public List<Customer> findOneByField(String field, String content, String tid) {
 		List<Customer> target=mapper.findOne(field, content,tid);
 		return target;
+	}
+
+	@Override
+	public Customer findOneById(String cid) {
+		Customer cus=mapper.selectByPrimaryKey(cid);
+		return cus;
 	}
 
 	
