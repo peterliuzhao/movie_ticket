@@ -10,13 +10,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 //@EnableTransactionManagement 测试子分支
 public class App { 
 	public static void main(String[] args) {  
-<<<<<<< HEAD
-		SpringApplication.run(App.class, args);     
-=======
-		SpringApplication.run(App.class, args);      
-		
-		
-		
->>>>>>> branch 'dev' of git@github.com:peterliuzhao/movie_ticket.git
+		SpringApplication.run(App.class, args);     		
 	}        
 }           
