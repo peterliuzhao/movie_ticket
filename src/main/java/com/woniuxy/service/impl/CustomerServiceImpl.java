@@ -46,13 +46,13 @@ public class CustomerServiceImpl implements ICustomerService {
 		// TODO Auto-generated method stub
 		mapper.updateByPrimaryKeySelective(cus);
 	}
-
+	@Transactional(readOnly = true)
 	@Override
 	public List<Customer> findOneByField(String field, String content, String tid) {
 		List<Customer> target=mapper.findOne(field, content,tid);
 		return target;
 	}
-
+	@Transactional(readOnly = true)
 	@Override
 	public Customer findOneById(String cid) {
 		Customer cus=mapper.selectByPrimaryKey(cid);
