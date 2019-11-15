@@ -30,6 +30,7 @@ public class PageInterceptor implements Interceptor{
 	
 	@Override
 	public Object intercept(Invocation invocation) throws Throwable {
+		
 		//首先取得当前环境中是否有RowBounds
 		//获取被拦截被代理的目标对象
 		StatementHandler statementHandler = (StatementHandler)invocation.getTarget();
@@ -51,14 +52,16 @@ public class PageInterceptor implements Interceptor{
 			
 			String pageSQL = dialect.getPageSql(boundSQL, offset, limit);
 			//将新的分页SQL放入metaObject中
-			metaObject.setValue("delegate.boundSql", pageSQL);
+			metaObject.setValue("delegate.boundSql.sql", pageSQL);
 			//如果此时运行 则物理分页和内存分页都会执行
 			//还原成原始的不分页的值
 			metaObject.setValue("delegate.rowBounds.limit", RowBounds.NO_ROW_LIMIT);
-			metaObject.setValue("delegate.rowBounds.limit", RowBounds.NO_ROW_OFFSET);
+			metaObject.setValue("delegate.rowBounds.offset", RowBounds.NO_ROW_OFFSET);
 			//此时metaObject中的RowBounds是默认的RowBounds
 			//此时metaObject中的sql是带分页的SQL了
-		}
+			
+
+			}
 		Object proceed = invocation.proceed();
 		return proceed;
 	}

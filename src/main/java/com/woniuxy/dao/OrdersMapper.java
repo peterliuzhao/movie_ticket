@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.RowBounds;
 
 import com.woniuxy.domain.Orders;
 import com.woniuxy.domain.OrdersExample;
@@ -19,7 +20,7 @@ public interface OrdersMapper {
 
 	int insertSelective(Orders record);
 
-	List<Orders> selectByExample(OrdersExample example);
+	List<Orders> selectByExample(OrdersExample example);//,RowBounds rb
 
 	Orders selectByPrimaryKey(String oid);
 
@@ -34,5 +35,5 @@ public interface OrdersMapper {
 	List<Orders> findByStartTime(@Param("date") String date,@Param("tid")  String tid);
 	Orders findDayMoney(@Param("date") String date,@Param("tid")  String tid);
 	List<Orders> findTenMoney(@Param("tid")  String tid);
-	List<Orders> findByTid(@Param("tid") String tid);
+	List<Orders> findByTid(@Param("tid") String tid,RowBounds rb);
 }

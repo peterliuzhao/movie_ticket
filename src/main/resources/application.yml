@@ -13,12 +13,8 @@ datasource:
   password: Ljq5458674!
   driver-class-name: com.mysql.jdbc.Driver
     
-logging:
-  level:
-    com:
-      woniuxy:
-        dao:
-          mapper: debug
+
+   
         
 mybatis:
   config-location: classpath:mybatisConfig.xml

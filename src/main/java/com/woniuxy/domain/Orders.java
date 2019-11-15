@@ -106,4 +106,13 @@ public class Orders implements Serializable {
     public void setFsid(String fsid) {
         this.fsid = fsid == null ? null : fsid.trim();
     }
+
+	@Override
+	public String toString() {
+		return "Orders [oid=" + oid + ", ostartTime=" + ostartTime + ", oupdateTime=" + oupdateTime + ", ototalprice="
+				+ ototalprice + ", ostatus=" + ostatus + ", cid=" + cid + ", fsid=" + fsid + ", dates=" + dates
+				+ ", sum=" + sum + "]";
+	}
+    
+    
 }

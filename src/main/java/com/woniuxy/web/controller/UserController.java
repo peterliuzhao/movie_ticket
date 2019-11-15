@@ -66,9 +66,10 @@ public class UserController {
   
 		Map<String, Object> map = new HashMap<>();
 		try { 
-			subject.login(token);  
+			subject.login (token);  
 			map.put("status", 200);
 			map.put("username", subject.getPrincipal());
+			map.put("uid",service.findOneByUname(user).getUid());
 //			req.getSession().setAttribute("uid", service.findUserByUname(username).getUid().toString());
 		} catch (AuthenticationException e) {
 			System.out.println("UserController.login()---------------------------");
@@ -76,7 +77,7 @@ public class UserController {
 			map.put("message", "登录失败，可能是用户名或密码错误");
 		}
         
-//		System.out.println(map+" map=============");
+		System.out.println(map+" map=============");
 		return map;
 	}
 
