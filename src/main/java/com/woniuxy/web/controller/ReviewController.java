@@ -44,8 +44,12 @@ public class ReviewController {
 		return service.findOne(rwid);
 	}
 	
-	@GetMapping
-	public List<Map<String,Object>> findAll(){
+	
+	@GetMapping public List<Map<String,Object>> findAll(){
+		System.out.println(service.findAll());
 		return service.findAll();
 	}
+	 
+	
+
 }

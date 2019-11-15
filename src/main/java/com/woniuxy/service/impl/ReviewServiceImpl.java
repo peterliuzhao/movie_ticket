@@ -44,10 +44,14 @@ public class ReviewServiceImpl implements IReviewService {
 		return mapper.selectByPrimaryKey(rwid);
 	}
 
+	/*
+	 * @Transactional(readOnly = true)
+	 * 
+	 * @Override public List<Map<String,Object>> findAll() { return
+	 * mapper.findAll(); }
+	 */
 	@Transactional(readOnly = true)
-	@Override
-	public List<Map<String,Object>> findAll() {
+	@Override public List<Map<String,Object>> findAll() { 
 		return mapper.findAll();
 	}
-
 }
