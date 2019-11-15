@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +20,7 @@ import com.woniuxy.service.IReviewService;
 @RequestMapping("reviews")
 public class ReviewController {
 
+
 	@Autowired
 	private IReviewService service;	
 	
@@ -27,12 +29,11 @@ public class ReviewController {
 		service.save(review);
 	}
 	
-	@DeleteMapping
-	public void delete(@RequestBody String rwid) {
-		System.out.println(rwid+"!!!!!!!!!!!!!!");
+	
+	@DeleteMapping("{rwid}") 
+	public void delete(@PathVariable String rwid) {
 		service.delete(rwid);
 	}
-	
 	@PutMapping
 	public void update(Review review) {
 		service.update(review);
@@ -43,8 +44,12 @@ public class ReviewController {
 		return service.findOne(rwid);
 	}
 	
-	@GetMapping
-	public List<Map<String,Object>> findAll(){
+	
+	@GetMapping public List<Map<String,Object>> findAll(){
+		System.out.println(service.findAll());
 		return service.findAll();
 	}
+	 
+	
+
 }

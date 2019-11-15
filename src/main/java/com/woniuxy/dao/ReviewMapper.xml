@@ -274,7 +274,7 @@
   
   
   <select id="findAll" resultType="java.util.Map">
-	select d.uid uid,d.uname uname,d.tid tid,d.rwid rwid,d.rwtext rwtext,d.rwtime rwtime,d.rw_parentId rw_parentId,d2.uid uid2,d2.uname uname2,d2.rwid rwid2,d2.rwtext rwtext2,d2.rwtime rwtime2,d2.rw_parentId rw_parentId 
+<!-- 	select d.uid uid,d.uname uname,d.tid tid,d.rwid rwid,d.rwtext rwtext,d.rwtime rwtime,d.rw_parentId rw_parentId,d2.uid uid2,d2.uname uname2,d2.rwid rwid2,d2.rwtext rwtext2,d2.rwtime rwtime2,d2.rw_parentId rw_parentId 
 		FROM	
 		(select u.uid,u.uname,u.tid,r.rwid,r.rwtext,r.rwtime,r.rw_parentId from users u JOIN review r
 			on u.uid = r.uid) d
@@ -282,6 +282,8 @@
 		(select u2.uid,u2.uname,u2.tid,r2.rwid,r2.rwtext,r2.rwtime,r2.rw_parentId from users u2 JOIN review r2
 			on u2.uid = r2.uid
 			WHERE r2.rw_parentId IS NOT NULL) d2
-			ON d.rw_parentId IS NULL AND d.rwid = d2.rw_parentId   
+			ON d.rw_parentId IS NULL AND d.rwid = d2.rw_parentId   --> 
+			
+		select rwid,rwtext,r.uid,rw_parentId,uname,tid,rwtime from review r,users u WHERE r.uid = u.uid
   </select>
 </mapper>
