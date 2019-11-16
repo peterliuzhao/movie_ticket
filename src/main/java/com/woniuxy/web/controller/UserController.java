@@ -54,6 +54,7 @@ public class UserController {
 	}
 
 	//登录过程 成功返回200 失败返回500
+
 	@GetMapping("login")
 	@ResponseBody
 	public Map<String, Object> login(Users user, HttpServletRequest req) {
@@ -64,10 +65,11 @@ public class UserController {
 		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
   
 		Map<String, Object> map = new HashMap<>();
-		try {
-			subject.login(token);  
+		try { 
+			subject.login (token);  
 			map.put("status", 200);
 			map.put("username", subject.getPrincipal());
+			map.put("uid",service.findOneByUname(user).getUid());
 //			req.getSession().setAttribute("uid", service.findUserByUname(username).getUid().toString());
 		} catch (AuthenticationException e) {
 			System.out.println("UserController.login()---------------------------");
@@ -80,15 +82,22 @@ public class UserController {
 	}
 
 	// 退出登录 注销功能
-	@GetMapping(value = "logout")
+	@GetMapping("logout")
 	@ResponseBody
 	public void logout(HttpServletRequest request, HttpServletResponse response) {
 		Subject subject = SecurityUtils.getSubject();
 		subject.logout();
+//		System.out.println("logout!!!!!");
 	}
 	
-	
-	
+	//验证是否登录
+	@RequestMapping("isAuthenticated")
+	public Map<String,Object> isAutheticated(){
+		Subject subject = SecurityUtils.getSubject();
+		HashMap<String, Object> loginMap = new HashMap<>();
+		loginMap.put("isAuthenticated", subject.isAuthenticated());
+		return loginMap;
+	}
 	
 	
 	

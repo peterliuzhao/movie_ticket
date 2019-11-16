@@ -49,6 +49,12 @@ public class UserServiceImpl implements IUserService{
 	public Users findOne(String uid) {
 		return mapper.selectByPrimaryKey(uid);
 	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public Users findOneByUname(Users user) {
+		return mapper.findOneByUname(user);
+	}
 
 	@Transactional(readOnly = true)
 	@Override

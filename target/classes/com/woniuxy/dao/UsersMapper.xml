@@ -234,4 +234,16 @@
   
   
   
+  
+  
+  
+  
+  
+  <select id="findOneByUname" parameterType="com.woniuxy.domain.UsersExample" resultMap="BaseResultMap">
+	select * from users us where us.uname=#{uname}
+  </select>
+  
+  
+  
+  
 </mapper>
