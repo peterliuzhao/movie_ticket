@@ -240,7 +240,17 @@
   
   
   <select id="findOneByUname" parameterType="com.woniuxy.domain.UsersExample" resultMap="BaseResultMap">
-	select * from users us where us.uname=#{uname}
+	select * from users us where 
+	us.uname=#{uname} and 
+	<choose>
+         <when test="tid != null">
+           us.tid = #{tid}
+         </when>
+         <when test="tid == null">
+           us.tid is null
+         </when>
+     </choose>
+     
   </select>
   
   

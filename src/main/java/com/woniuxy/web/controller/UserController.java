@@ -60,6 +60,7 @@ public class UserController {
 	public Map<String, Object> login(Users user, HttpServletRequest req) {
 		String username = user.getUname(); 
 		String password = user.getUpwd();
+
 		System.out.println(username + password);
 		Subject subject = SecurityUtils.getSubject();
 		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
@@ -70,6 +71,9 @@ public class UserController {
 			map.put("status", 200);
 			map.put("username", subject.getPrincipal());
 			map.put("uid",service.findOneByUname(user).getUid());
+			
+//			System.out.println("user form info: "+user);
+//			System.out.println("user database info: "+service.findOneByUname(user));
 //			req.getSession().setAttribute("uid", service.findUserByUname(username).getUid().toString());
 		} catch (AuthenticationException e) {
 			System.out.println("UserController.login()---------------------------");
