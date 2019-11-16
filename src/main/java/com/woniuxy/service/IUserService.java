@@ -11,4 +11,5 @@ public interface IUserService {
 	public void update(Users u);
 	public Users findOne(String uid);
 	public List<Users> findAll();
+	public Users findOneByUname(Users user);
 }

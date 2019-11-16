@@ -1,7 +1,10 @@
 package com.woniuxy.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.woniuxy.dao.OrdersMapper;
 import com.woniuxy.domain.Orders;
 import com.woniuxy.service.IOrdersService;
+import com.woniuxy.util.page.Page;
 
 @Service
 public class OrdersServiceImpl implements IOrdersService {
@@ -45,9 +49,17 @@ public class OrdersServiceImpl implements IOrdersService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public List<Orders> findAll(String tid) {
+	public Page<Orders> findAll(String tid,Integer currentPage) {
+		//分页
+		int rowPerPage = 6;
+		
+		int count=mapper.selectByExample(null).size();
+		Page<Orders> page=new Page<Orders>(currentPage,count,rowPerPage);
 
-		return mapper.findByTid(tid);
+		List<Orders> orders=mapper.findByTid(tid,new RowBounds((page.getP()-1)*rowPerPage,rowPerPage));
+		page.setList(orders);
+
+		return page;
 	}
 	
 	@Transactional(readOnly = true)

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.woniuxy.domain.Orders;
+import com.woniuxy.util.page.Page;
 
 public interface IOrdersService {
 	void save(Orders order);
@@ -14,7 +15,8 @@ public interface IOrdersService {
 
 	Orders findOne(String oid);
 
-	List<Orders> findAll(String tid);
+//	List<Orders> findAll(String tid,Integer currentPage);
+	Page<Orders> findAll(String tid,Integer currentPage);
 
 	List<Orders> findByStartTime(String date, String tid);
 
