@@ -64,15 +64,44 @@ public class OrdersController {
 	@GetMapping("save")
 	public void save(HttpServletRequest sq,String tid) {//@RequestBody Orders order
 //		service.save(order);
-		System.out.println(sq.getSession().getServletContext().getAttribute("OrderNotificationSocket")); 
-		Map websocketSessionMap = (Map) sq.getSession().getServletContext().getAttribute("OrderNotificationSocket");
+		
+		//顾客下单通知相应的影院，在影院后台管理界面右上角显示新订单提示
+//		System.out.println(sq.getSession().getServletContext().getAttribute("OrderNotificationSocketMap")); 
+		System.out.println("tid++++++++++"+tid);
+		Map OrderNotificationSocketMap = (Map) sq.getSession().getServletContext().getAttribute("OrderNotificationSocketMap");
+		System.out.println("tid-----------"+tid);
 		try {
-			System.out.println("websocketSessionMap: "+websocketSessionMap);
-			((Session)websocketSessionMap.get(tid)).getBasicRemote().sendText("adding!!!!!!!!!!!"+tid);
-			System.out.println("adding!!!!!!!!!!!");
+			System.out.println("OrderNotificationSocketMap: "+OrderNotificationSocketMap);
+			System.out.println("OrderNotificationSocketMap  tid1:"+(OrderNotificationSocket)OrderNotificationSocketMap.get(tid));
+			((OrderNotificationSocket)OrderNotificationSocketMap.get(tid)).session.getBasicRemote().sendText("影院"+tid+"有新订单了！！！");
+//			System.out.println("adding!!!!!!!!!!!");
 		} catch (IOException e) {
-			e.printStackTrace();
+			e.printStackTrace();  
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+//		System.out.println(sq.getSession().getServletContext().getAttribute("OrderNotificationSocket")); 
+//		Map websocketSessionMap = (Map) sq.getSession().getServletContext().getAttribute("OrderNotificationSocket");
+//		try {
+//			System.out.println("websocketSessionMap: "+websocketSessionMap);
+//			((Session)websocketSessionMap.get(tid)).getBasicRemote().sendText("adding!!!!!!!!!!!"+tid);
+//			System.out.println("adding!!!!!!!!!!!");
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 	}
 	
 	@PutMapping

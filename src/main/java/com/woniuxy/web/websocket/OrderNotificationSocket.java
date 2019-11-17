@@ -31,6 +31,7 @@ public class OrderNotificationSocket {
 //		private ServletContext servletContext;
 //		
 //		private static ApplicationContext applicationContext;
+		public Session session;
 		private static ServletContext servletContext;
 		
 	    public OrderNotificationSocket() {
@@ -55,32 +56,46 @@ public class OrderNotificationSocket {
 		@OnOpen  
 		public void open(Session session) {
 			System.out.println("open()---------open");
+			this.session = session;
 		}   
 		
 		@OnMessage
-		public void msg(String tid,Session session) {//tid 1   
-//			System.out.println("applicationContext.msg()   "+servletContext);
-			Map<String,Session> websocketSessionMap;
-			
-			
-			System.out.println("servletContext.getAttribute(\"OrderNotificationSocket\")"+servletContext.getAttribute("OrderNotificationSocket"));
-			if(servletContext.getAttribute("OrderNotificationSocket")==null) {
-				websocketSessionMap = new HashMap<String,Session>();
+		public void msg(String tid,Session session) {//tid 1  
+			System.out.println(tid+"     tid");
+			Map<String,OrderNotificationSocket> OrderNotificationSocketMap;
+			if(servletContext.getAttribute("OrderNotificationSocketMap")==null) {
+				OrderNotificationSocketMap = new HashMap<String,OrderNotificationSocket>();
 			}
 			else {
-				websocketSessionMap = (Map<String, Session>) servletContext.getAttribute("OrderNotificationSocket");
-			}
+				OrderNotificationSocketMap = (Map<String,OrderNotificationSocket>) servletContext.getAttribute("OrderNotificationSocketMap");
+			}  
 			
-			System.out.println("tid+++++"+tid);
-//			System.out.println(session.getBasicRemote().toString()+"     ");
-			websocketSessionMap.put(tid, session);  
-			servletContext.setAttribute("OrderNotificationSocket", websocketSessionMap); 
-			    
-			System.out.println(this+"--this");
+			OrderNotificationSocketMap.put(tid, this);
+			System.out.println("tid"+tid);     
+			servletContext.setAttribute("OrderNotificationSocketMap",OrderNotificationSocketMap);
+			System.out.println(OrderNotificationSocketMap);
+			
+////			System.out.println("applicationContext.msg()   "+servletContext);
+//			Map<String,Session> websocketSessionMap;
+//			
+//			
+//			System.out.println("servletContext.getAttribute(\"OrderNotificationSocket\")"+servletContext.getAttribute("OrderNotificationSocket"));
+//			if(servletContext.getAttribute("OrderNotificationSocket")==null) {
+//				websocketSessionMap = new HashMap<String,Session>();
+//			}
+//			else {
+//				websocketSessionMap = (Map<String, Session>) servletContext.getAttribute("OrderNotificationSocket");
+//			}
+//			
+//			System.out.println("tid+++++"+tid);
+////			System.out.println(session.getBasicRemote().toString()+"     ");
+//			websocketSessionMap.put(tid, session);  
+//			servletContext.setAttribute("OrderNotificationSocket", websocketSessionMap); 
+//			    
+//			System.out.println(this+"--this");
 			
 			
-			      
-			
+			     
 			
 //			ServletContext servletContext = //
 ////					ContextLoader.getCurrentWebApplicationContext().getServletContext();

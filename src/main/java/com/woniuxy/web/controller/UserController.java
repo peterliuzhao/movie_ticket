@@ -14,13 +14,18 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ContextLoader;
 
+import com.woniuxy.config.MyUsernamePasswordTidToken;
+import com.woniuxy.domain.Theater;
 import com.woniuxy.domain.Users;
+import com.woniuxy.service.ITheaterService;
 import com.woniuxy.service.IUserService;
 import com.woniuxy.util.AccountUtils;
 
@@ -30,6 +35,9 @@ public class UserController {
 
 	@Autowired
 	private IUserService service;
+	
+	@Autowired
+	private ITheaterService theaterService;
 	
 	//shiro 注册 用户增加加密
 	@GetMapping("save")
@@ -58,28 +66,39 @@ public class UserController {
 
 	@GetMapping("login")
 	@ResponseBody
-	public Map<String, Object> login(Users user, HttpServletRequest req) {
-		System.out.println(ContextLoader.getCurrentWebApplicationContext()+"------------");
-		
+	public Map<String, Object> login(Users user,@RequestParam(required=false) String theaterName,HttpServletRequest req) {
+		Theater thearter = theaterService.findOneByTname(theaterName);
+		System.out.println(thearter+" =============");
 		String username = user.getUname(); 
 		String password = user.getUpwd();
-
-		System.out.println(username + password);
+		if(thearter!=null) {
+			user.setTid(thearter.getTid());
+		}
+		//shiro标准jdbc
+//		System.out.println(username + password);
+//		Subject subject = SecurityUtils.getSubject();
+//		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+		
+		
+		//定制版jdbcrealm
 		Subject subject = SecurityUtils.getSubject();
-		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-  
+		MyUsernamePasswordTidToken token = new MyUsernamePasswordTidToken(username, password,thearter.getTid());
 		Map<String, Object> map = new HashMap<>();
+		
 		try { 
-			subject.login (token);  
-			map.put("status", 200);
-			map.put("username", subject.getPrincipal());
-			map.put("uid",service.findOneByUname(user).getUid());
 			
+			subject.login(token);  
+			map.put("status", 200);
+			map.put("username", subject.getPrincipal()); 
+			map.put("uid",service.findOneByUname(user).getUid());
+			map.put("tid",thearter.getTid());
+			
+//			System.out.println("map :"+map);
 //			System.out.println("user form info: "+user);
 //			System.out.println("user database info: "+service.findOneByUname(user));
 //			req.getSession().setAttribute("uid", service.findUserByUname(username).getUid().toString());
 		} catch (AuthenticationException e) {
-			System.out.println("UserController.login()---------------------------");
+//			System.out.println("UserController.login()---------------------------");
 			map.put("status", 500);
 			map.put("message", "登录失败，可能是用户名或密码错误");
 		}

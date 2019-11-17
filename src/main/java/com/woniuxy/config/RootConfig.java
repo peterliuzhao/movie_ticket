@@ -60,15 +60,30 @@ public class RootConfig {
 	
 	@Bean
 	public JdbcRealm realm() {
-		JdbcRealm realm = new JdbcRealm();
+		//使用定制版的realm  select upwd, salt from users where uname = ? and tid = ?
+		//默认tid为
+		MyJdbcRealm realm = new MyJdbcRealm();
 		realm.setDataSource(ds());
-		realm.setAuthenticationQuery("select upwd, salt from users where uname = ?");
+		realm.setAuthenticationQuery("select upwd, salt from users where uname = ? and tid = ?");
 		realm.setUserRolesQuery("select rname from users_roles ur join users u on ur.uid = u.uid join roles r on ur.rid = r.rid where uname = ?");
 		realm.setPermissionsQuery("select pname from roles_permissions rp join roles r on rp.rid = r.rid join permissions p on rp.pid = p.pid where rname = ?");
 		realm.setPermissionsLookupEnabled(true);
 		realm.setCredentialsMatcher(hcm());
 		realm.setSaltStyle(SaltStyle.COLUMN);
 		return realm;
+		
+		
+		
+//==================================================================================================
+//		JdbcRealm realm = new JdbcRealm();
+//		realm.setDataSource(ds());
+//		realm.setAuthenticationQuery("select upwd, salt from users where uname = ?");
+//		realm.setUserRolesQuery("select rname from users_roles ur join users u on ur.uid = u.uid join roles r on ur.rid = r.rid where uname = ?");
+//		realm.setPermissionsQuery("select pname from roles_permissions rp join roles r on rp.rid = r.rid join permissions p on rp.pid = p.pid where rname = ?");
+//		realm.setPermissionsLookupEnabled(true);
+//		realm.setCredentialsMatcher(hcm());
+//		realm.setSaltStyle(SaltStyle.COLUMN);
+//		return realm;
 	}
 	
 	@Bean
