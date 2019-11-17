@@ -14,8 +14,10 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 import com.alibaba.druid.pool.DruidDataSource;
+
 import org.apache.shiro.web.filter.authc.UserFilter;
 
 /*
@@ -26,7 +28,13 @@ import org.apache.shiro.web.filter.authc.UserFilter;
 */
 @Configuration
 public class RootConfig {
-	
+
+	//websocket所需要的类
+	@Bean
+	public ServerEndpointExporter serEndExp() {
+		return new ServerEndpointExporter();
+	}
+	  
 	@Bean
 	public CommonsMultipartResolver multipartResolver() {
 		return new CommonsMultipartResolver();
@@ -79,6 +87,7 @@ public class RootConfig {
 		map.put("/users/login","anon");
 		map.put("/users/isAuthenticated","anon");
 		map.put("/users/logout", "anon");
+		map.put("/ordernotification", "anon");
 		map.put("/**", "authc");
 //		map.put("/**", "anon");
 		   

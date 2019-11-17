@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.ContextLoader;
 
 import com.woniuxy.domain.Users;
 import com.woniuxy.service.IUserService;
@@ -58,6 +59,8 @@ public class UserController {
 	@GetMapping("login")
 	@ResponseBody
 	public Map<String, Object> login(Users user, HttpServletRequest req) {
+		System.out.println(ContextLoader.getCurrentWebApplicationContext()+"------------");
+		
 		String username = user.getUname(); 
 		String password = user.getUpwd();
 
