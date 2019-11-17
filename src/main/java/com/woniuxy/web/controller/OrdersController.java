@@ -1,6 +1,10 @@
 package com.woniuxy.web.controller;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,10 +13,16 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.ContextLoader;
 
 import com.woniuxy.domain.Orders;
 import com.woniuxy.service.IOrdersService;
 import com.woniuxy.util.page.Page;
+import com.woniuxy.web.websocket.OrderNotificationSocket;
+import javax.websocket.Session;
+
+
+
 
 @RestController
 @RequestMapping("orders")
@@ -51,9 +61,47 @@ public class OrdersController {
 	}
 	
 	
-	@PostMapping
-	public void save(@RequestBody Orders order) {
-		service.save(order);
+	@GetMapping("save")
+	public void save(HttpServletRequest sq,String tid) {//@RequestBody Orders order
+//		service.save(order);
+		
+		//顾客下单通知相应的影院，在影院后台管理界面右上角显示新订单提示
+//		System.out.println(sq.getSession().getServletContext().getAttribute("OrderNotificationSocketMap")); 
+		System.out.println("tid++++++++++"+tid);
+		Map OrderNotificationSocketMap = (Map) sq.getSession().getServletContext().getAttribute("OrderNotificationSocketMap");
+		System.out.println("tid-----------"+tid);
+		try {
+			System.out.println("OrderNotificationSocketMap: "+OrderNotificationSocketMap);
+			System.out.println("OrderNotificationSocketMap  tid1:"+(OrderNotificationSocket)OrderNotificationSocketMap.get(tid));
+			((OrderNotificationSocket)OrderNotificationSocketMap.get(tid)).session.getBasicRemote().sendText("影院"+tid+"有新订单了！！！");
+//			System.out.println("adding!!!!!!!!!!!");
+		} catch (IOException e) {
+			e.printStackTrace();  
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+//		System.out.println(sq.getSession().getServletContext().getAttribute("OrderNotificationSocket")); 
+//		Map websocketSessionMap = (Map) sq.getSession().getServletContext().getAttribute("OrderNotificationSocket");
+//		try {
+//			System.out.println("websocketSessionMap: "+websocketSessionMap);
+//			((Session)websocketSessionMap.get(tid)).getBasicRemote().sendText("adding!!!!!!!!!!!"+tid);
+//			System.out.println("adding!!!!!!!!!!!");
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 	}
 	
 	@PutMapping

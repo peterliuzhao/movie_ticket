@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniuxy.dao.TheaterMapper">
+  <resultMap id="BaseResultMap" type="com.woniuxy.domain.Theater">
+    <id column="tid" jdbcType="VARCHAR" property="tid" />
+    <result column="tname" jdbcType="VARCHAR" property="tname" />
+    <result column="tlogo" jdbcType="VARCHAR" property="tlogo" />
+    <result column="tphoto" jdbcType="VARCHAR" property="tphoto" />
+    <result column="tphone" jdbcType="VARCHAR" property="tphone" />
+    <result column="tcopyright" jdbcType="VARCHAR" property="tcopyright" />
+    <result column="taccount" jdbcType="VARCHAR" property="taccount" />
+    <result column="tsoft_del" jdbcType="INTEGER" property="tsoftDel" />
+    <result column="turl" jdbcType="VARCHAR" property="turl" />
+    <result column="uid" jdbcType="VARCHAR" property="uid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    tid, tname, tlogo, tphoto, tphone, tcopyright, taccount, tsoft_del, turl, uid
+  </sql>
+  <select id="selectByExample" parameterType="com.woniuxy.domain.TheaterExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from theater
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from theater
+    where tid = #{tid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from theater
+    where tid = #{tid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.woniuxy.domain.TheaterExample">
+    delete from theater
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.woniuxy.domain.Theater">
+    insert into theater (tid, tname, tlogo, 
+      tphoto, tphone, tcopyright, 
+      taccount, tsoft_del, turl, 
+      uid)
+    values (#{tid,jdbcType=VARCHAR}, #{tname,jdbcType=VARCHAR}, #{tlogo,jdbcType=VARCHAR}, 
+      #{tphoto,jdbcType=VARCHAR}, #{tphone,jdbcType=VARCHAR}, #{tcopyright,jdbcType=VARCHAR}, 
+      #{taccount,jdbcType=VARCHAR}, #{tsoftDel,jdbcType=INTEGER}, #{turl,jdbcType=VARCHAR}, 
+      #{uid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.woniuxy.domain.Theater">
+    insert into theater
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tid != null">
+        tid,
+      </if>
+      <if test="tname != null">
+        tname,
+      </if>
+      <if test="tlogo != null">
+        tlogo,
+      </if>
+      <if test="tphoto != null">
+        tphoto,
+      </if>
+      <if test="tphone != null">
+        tphone,
+      </if>
+      <if test="tcopyright != null">
+        tcopyright,
+      </if>
+      <if test="taccount != null">
+        taccount,
+      </if>
+      <if test="tsoftDel != null">
+        tsoft_del,
+      </if>
+      <if test="turl != null">
+        turl,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tid != null">
+        #{tid,jdbcType=VARCHAR},
+      </if>
+      <if test="tname != null">
+        #{tname,jdbcType=VARCHAR},
+      </if>
+      <if test="tlogo != null">
+        #{tlogo,jdbcType=VARCHAR},
+      </if>
+      <if test="tphoto != null">
+        #{tphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="tphone != null">
+        #{tphone,jdbcType=VARCHAR},
+      </if>
+      <if test="tcopyright != null">
+        #{tcopyright,jdbcType=VARCHAR},
+      </if>
+      <if test="taccount != null">
+        #{taccount,jdbcType=VARCHAR},
+      </if>
+      <if test="tsoftDel != null">
+        #{tsoftDel,jdbcType=INTEGER},
+      </if>
+      <if test="turl != null">
+        #{turl,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.woniuxy.domain.TheaterExample" resultType="java.lang.Long">
+    select count(*) from theater
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update theater
+    <set>
+      <if test="record.tid != null">
+        tid = #{record.tid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tname != null">
+        tname = #{record.tname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tlogo != null">
+        tlogo = #{record.tlogo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tphoto != null">
+        tphoto = #{record.tphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tphone != null">
+        tphone = #{record.tphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tcopyright != null">
+        tcopyright = #{record.tcopyright,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taccount != null">
+        taccount = #{record.taccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tsoftDel != null">
+        tsoft_del = #{record.tsoftDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.turl != null">
+        turl = #{record.turl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uid != null">
+        uid = #{record.uid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update theater
+    set tid = #{record.tid,jdbcType=VARCHAR},
+      tname = #{record.tname,jdbcType=VARCHAR},
+      tlogo = #{record.tlogo,jdbcType=VARCHAR},
+      tphoto = #{record.tphoto,jdbcType=VARCHAR},
+      tphone = #{record.tphone,jdbcType=VARCHAR},
+      tcopyright = #{record.tcopyright,jdbcType=VARCHAR},
+      taccount = #{record.taccount,jdbcType=VARCHAR},
+      tsoft_del = #{record.tsoftDel,jdbcType=INTEGER},
+      turl = #{record.turl,jdbcType=VARCHAR},
+      uid = #{record.uid,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.woniuxy.domain.Theater">
+    update theater
+    <set>
+      <if test="tname != null">
+        tname = #{tname,jdbcType=VARCHAR},
+      </if>
+      <if test="tlogo != null">
+        tlogo = #{tlogo,jdbcType=VARCHAR},
+      </if>
+      <if test="tphoto != null">
+        tphoto = #{tphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="tphone != null">
+        tphone = #{tphone,jdbcType=VARCHAR},
+      </if>
+      <if test="tcopyright != null">
+        tcopyright = #{tcopyright,jdbcType=VARCHAR},
+      </if>
+      <if test="taccount != null">
+        taccount = #{taccount,jdbcType=VARCHAR},
+      </if>
+      <if test="tsoftDel != null">
+        tsoft_del = #{tsoftDel,jdbcType=INTEGER},
+      </if>
+      <if test="turl != null">
+        turl = #{turl,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tid = #{tid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.woniuxy.domain.Theater">
+    update theater
+    set tname = #{tname,jdbcType=VARCHAR},
+      tlogo = #{tlogo,jdbcType=VARCHAR},
+      tphoto = #{tphoto,jdbcType=VARCHAR},
+      tphone = #{tphone,jdbcType=VARCHAR},
+      tcopyright = #{tcopyright,jdbcType=VARCHAR},
+      taccount = #{taccount,jdbcType=VARCHAR},
+      tsoft_del = #{tsoftDel,jdbcType=INTEGER},
+      turl = #{turl,jdbcType=VARCHAR},
+      uid = #{uid,jdbcType=VARCHAR}
+    where tid = #{tid,jdbcType=VARCHAR}
+  </update>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <select id="findOneByTname" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from theater
+    where tname = #{tname,jdbcType=VARCHAR}
+  </select>
+  
+</mapper>

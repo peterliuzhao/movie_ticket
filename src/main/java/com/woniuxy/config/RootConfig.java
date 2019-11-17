@@ -14,8 +14,10 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 import com.alibaba.druid.pool.DruidDataSource;
+
 import org.apache.shiro.web.filter.authc.UserFilter;
 
 /*
@@ -26,7 +28,13 @@ import org.apache.shiro.web.filter.authc.UserFilter;
 */
 @Configuration
 public class RootConfig {
-	
+
+	//websocket所需要的类
+	@Bean
+	public ServerEndpointExporter serEndExp() {
+		return new ServerEndpointExporter();
+	}
+	  
 	@Bean
 	public CommonsMultipartResolver multipartResolver() {
 		return new CommonsMultipartResolver();
@@ -52,15 +60,30 @@ public class RootConfig {
 	
 	@Bean
 	public JdbcRealm realm() {
-		JdbcRealm realm = new JdbcRealm();
+		//使用定制版的realm  select upwd, salt from users where uname = ? and tid = ?
+		//默认tid为
+		MyJdbcRealm realm = new MyJdbcRealm();
 		realm.setDataSource(ds());
-		realm.setAuthenticationQuery("select upwd, salt from users where uname = ?");
+		realm.setAuthenticationQuery("select upwd, salt from users where uname = ? and tid = ?");
 		realm.setUserRolesQuery("select rname from users_roles ur join users u on ur.uid = u.uid join roles r on ur.rid = r.rid where uname = ?");
 		realm.setPermissionsQuery("select pname from roles_permissions rp join roles r on rp.rid = r.rid join permissions p on rp.pid = p.pid where rname = ?");
 		realm.setPermissionsLookupEnabled(true);
 		realm.setCredentialsMatcher(hcm());
 		realm.setSaltStyle(SaltStyle.COLUMN);
 		return realm;
+		
+		
+		
+//==================================================================================================
+//		JdbcRealm realm = new JdbcRealm();
+//		realm.setDataSource(ds());
+//		realm.setAuthenticationQuery("select upwd, salt from users where uname = ?");
+//		realm.setUserRolesQuery("select rname from users_roles ur join users u on ur.uid = u.uid join roles r on ur.rid = r.rid where uname = ?");
+//		realm.setPermissionsQuery("select pname from roles_permissions rp join roles r on rp.rid = r.rid join permissions p on rp.pid = p.pid where rname = ?");
+//		realm.setPermissionsLookupEnabled(true);
+//		realm.setCredentialsMatcher(hcm());
+//		realm.setSaltStyle(SaltStyle.COLUMN);
+//		return realm;
 	}
 	
 	@Bean
@@ -79,6 +102,7 @@ public class RootConfig {
 		map.put("/users/login","anon");
 		map.put("/users/isAuthenticated","anon");
 		map.put("/users/logout", "anon");
+		map.put("/ordernotification", "anon");
 		map.put("/**", "authc");
 //		map.put("/**", "anon");
 		   
