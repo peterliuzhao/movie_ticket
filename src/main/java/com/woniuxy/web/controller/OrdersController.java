@@ -51,7 +51,12 @@ public class OrdersController {
 	
 	@GetMapping("/daymoney")
 	public Orders findDayMoney( String date, String tid) {
-		return service.findDayMoney(date, tid);	
+		Orders order = service.findDayMoney(date, tid);
+		if(order==null) {
+			order = new Orders();
+			order.setSum(0.0);
+		}
+		return order;	
 	}
 	
 	@GetMapping("/tenmoney")
