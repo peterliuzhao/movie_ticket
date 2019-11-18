@@ -7,8 +7,10 @@ import javax.servlet.Filter;
 import javax.sql.DataSource;
 
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.realm.jdbc.JdbcRealm;
 import org.apache.shiro.realm.jdbc.JdbcRealm.SaltStyle;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
@@ -58,6 +60,14 @@ public class RootConfig {
 		return hcm;
 	}
 	
+	
+	@Bean
+	public EhCacheManager cacheManager() {
+		EhCacheManager ecm = new EhCacheManager();
+		ecm.setCacheManagerConfigFile("classpath:shiro-ehcache.xml");
+		return ecm;
+	}  
+	
 	@Bean
 	public JdbcRealm realm() {
 		//使用定制版的realm  select upwd, salt from users where uname = ? and tid = ?
@@ -70,6 +80,7 @@ public class RootConfig {
 		realm.setPermissionsLookupEnabled(true);
 		realm.setCredentialsMatcher(hcm());
 		realm.setSaltStyle(SaltStyle.COLUMN);
+		realm.setCachingEnabled(true);
 		return realm;
 		
 		
@@ -90,9 +101,18 @@ public class RootConfig {
 	public DefaultWebSecurityManager securityManager() {
 		DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
 		securityManager.setRealm(realm());
+		securityManager.setCacheManager(cacheManager());
 		return securityManager;
 	}
 	
+	//在springboot环境中，需要按照以下配置，让shiro注解生效
+	@Bean
+	public AuthorizationAttributeSourceAdvisor getAuthorizationAttributeSourceAdvisor() {
+		AuthorizationAttributeSourceAdvisor aasa = new AuthorizationAttributeSourceAdvisor();
+		aasa.setSecurityManager(securityManager());
+		return aasa;
+	}
+		
 	@Bean
 	public ShiroFilterFactoryBean shiroFilter() {
 		ShiroFilterFactoryBean sf = new ShiroFilterFactoryBean();
