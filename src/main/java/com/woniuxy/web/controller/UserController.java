@@ -66,39 +66,48 @@ public class UserController {
 
 	@GetMapping("login")
 	@ResponseBody
-	public Map<String, Object> login(Users user,@RequestParam(required=false) String theaterName,HttpServletRequest req) {
+	public Map<String, Object> login(Users user,@RequestParam(required=false) String theaterName,@RequestParam(required=false)Boolean backstage) {
+		System.out.println("backstage ----- "+backstage);
+		
+		Map<String, Object> map = new HashMap<>();
 		Theater thearter = theaterService.findOneByTname(theaterName);
-		System.out.println(thearter+" =============");
 		String username = user.getUname(); 
 		String password = user.getUpwd();
-		if(thearter!=null) {
-			user.setTid(thearter.getTid());
-		}
+		user.setTid(thearter.getTid());
+		
 		//shiro标准jdbc
 //		System.out.println(username + password);
 //		Subject subject = SecurityUtils.getSubject();
 //		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 		
-		
 		//定制版jdbcrealm
 		Subject subject = SecurityUtils.getSubject();
 		MyUsernamePasswordTidToken token = new MyUsernamePasswordTidToken(username, password,thearter.getTid());
-		Map<String, Object> map = new HashMap<>();
 		
 		try { 
-			
 			subject.login(token);  
 			map.put("status", 200);
 			map.put("username", subject.getPrincipal()); 
 			map.put("uid",service.findOneByUname(user).getUid());
 			map.put("tid",thearter.getTid());
 			
-//			System.out.println("map :"+map);
-//			System.out.println("user form info: "+user);
-//			System.out.println("user database info: "+service.findOneByUname(user));
-//			req.getSession().setAttribute("uid", service.findUserByUname(username).getUid().toString());
+			
+			//验证是否为后台登录，如果是验证是否有影院管理员权限，有则在给前台的回复中
+			//添加 "thearterManager",true 前端页面记住登陆状态并放行至主页管理界面
+			//无管理员权限则登出，并返回不是管理员的键值对 （"thearterManager",false）
+			if(backstage) {
+				if(subject.hasRole("thearterManager")) {
+					map.put("thearterManager",true);
+				}
+				else {
+					subject.logout();
+					map.put("thearterManager",false);
+					map.put("status", 500);
+					map.put("message", "登录失败，可能是用户名或密码错误");
+				}
+			}
+			
 		} catch (AuthenticationException e) {
-//			System.out.println("UserController.login()---------------------------");
 			map.put("status", 500);
 			map.put("message", "登录失败，可能是用户名或密码错误");
 		}
@@ -107,6 +116,8 @@ public class UserController {
 		return map;
 	}
 
+	
+	
 	// 退出登录 注销功能
 	@GetMapping("logout")
 	@ResponseBody
