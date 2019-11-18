@@ -16,4 +16,4 @@ public class App {
 		ConfigurableApplicationContext run = SpringApplication.run(App.class, args);
 //		OrderNotificationSocket.setApplicationContext(run);
 	}        
-}              
+}                
