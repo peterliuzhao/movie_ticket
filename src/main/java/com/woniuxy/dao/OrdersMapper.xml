@@ -305,7 +305,7 @@
 
 	<select id="findDayMoney" resultMap="BaseResultMap">
 		select SUM(ototalprice) sum
-		totalMoney from orders o where ostart_time like '${date}%' and o.fsid
+		 from orders o where ostart_time like '${date}%' and o.fsid
 		in(
 		select fs.fsid from show_venue sv join film_session fs
 		on sv.svid =

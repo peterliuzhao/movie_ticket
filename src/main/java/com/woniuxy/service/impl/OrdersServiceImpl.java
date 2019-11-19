@@ -51,7 +51,7 @@ public class OrdersServiceImpl implements IOrdersService {
 	@Override
 	public Page<Orders> findAll(String tid,Integer currentPage) {
 		//分页
-		int rowPerPage = 6;
+		int rowPerPage = 1;
 		
 		int count=mapper.selectByExample(null).size();
 		Page<Orders> page=new Page<Orders>(currentPage,count,rowPerPage);
