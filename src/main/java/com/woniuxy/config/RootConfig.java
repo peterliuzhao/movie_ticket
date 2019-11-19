@@ -122,6 +122,7 @@ public class RootConfig {
 		map.put("/users/login","anon");
 		map.put("/users/isAuthenticated","anon");
 		map.put("/users/logout", "anon");
+		map.put("/users/save", "anon");
 		map.put("/ordernotification", "anon");
 		map.put("/**", "authc");
 //		map.put("/**", "anon");

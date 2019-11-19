@@ -75,6 +75,7 @@ public class UserController {
 		String password = user.getUpwd();
 		user.setTid(thearter.getTid());
 		
+		System.out.println("user:"+user);
 		//shiro标准jdbc
 //		System.out.println(username + password);
 //		Subject subject = SecurityUtils.getSubject();
@@ -83,7 +84,6 @@ public class UserController {
 		//定制版jdbcrealm
 		Subject subject = SecurityUtils.getSubject();
 		MyUsernamePasswordTidToken token = new MyUsernamePasswordTidToken(username, password,thearter.getTid());
-		
 		try { 
 			subject.login(token);  
 			map.put("status", 200);
@@ -91,10 +91,12 @@ public class UserController {
 			map.put("uid",service.findOneByUname(user).getUid());
 			map.put("tid",thearter.getTid());
 			
-			
 			//验证是否为后台登录，如果是验证是否有影院管理员权限，有则在给前台的回复中
 			//添加 "thearterManager",true 前端页面记住登陆状态并放行至主页管理界面
 			//无管理员权限则登出，并返回不是管理员的键值对 （"thearterManager",false）
+			if(backstage==null) {
+				backstage = false;
+			}
 			if(backstage) {
 				if(subject.hasRole("thearterManager")) {
 					map.put("thearterManager",true);
