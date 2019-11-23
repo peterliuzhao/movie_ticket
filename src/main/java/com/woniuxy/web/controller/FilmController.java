@@ -219,12 +219,12 @@ public class FilmController {
 		List<String[]> fphotos = new ArrayList<>();
 		List<FilmType> ftlist = service2.findAll();
 		for (int i = 0; i < flist.size(); i++) {
-			String[] factorPhoto = flist.get(i).getFactorPhoto().split(",");
-			factorPhotos.add(factorPhoto);
-			String[] fphoto = flist.get(i).getFphoto().split(",");
-			fphotos.add(fphoto);
-			System.out.println(fphoto);
-			System.out.println(factorPhoto);
+//			String[] factorPhoto = flist.get(i).getFactorPhoto().split(",");
+//			factorPhotos.add(factorPhoto);
+//			String[] fphoto = flist.get(i).getFphoto().split(",");
+//			fphotos.add(fphoto);
+//			System.out.println(fphoto);
+//			System.out.println(factorPhoto);
 			for (int j = 0; j < ftlist.size(); j++) {
 				if (flist.get(i).getFtid().equals(ftlist.get(j).getFtid())) {
 					flist.get(i).setFtid(ftlist.get(j).getFtname());
@@ -236,8 +236,8 @@ public class FilmController {
 		System.out.println(factorPhotos);
 		list.add(flist);
 		list.add(ftlist);
-		list.add(factorPhotos);
-		list.add(fphotos);
+//		list.add(factorPhotos);
+//		list.add(fphotos);
 		return list;
 	}
 	// 查询单个电影信息
