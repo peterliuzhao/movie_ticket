@@ -7,7 +7,7 @@
  	<properties>
  		<property name="dialect" value="mysql"/>
  	</properties>
- 	
+ 	   
  	<plugins>
  		<plugin interceptor="com.woniuxy.web.interceptors.PageInterceptor"></plugin>
  	</plugins>

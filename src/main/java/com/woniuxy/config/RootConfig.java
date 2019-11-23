@@ -20,6 +20,8 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 import com.alibaba.druid.pool.DruidDataSource;
 
+import net.sf.ehcache.CacheManager;
+
 import org.apache.shiro.web.filter.authc.UserFilter;
 
 /*
@@ -63,9 +65,24 @@ public class RootConfig {
 	
 	@Bean
 	public EhCacheManager cacheManager() {
-		EhCacheManager ecm = new EhCacheManager();
-		ecm.setCacheManagerConfigFile("classpath:shiro-ehcache.xml");
-		return ecm;
+		//如果使用的ehcache版本超过了2.5.0，那么<ehcache name="myEhcache">就很重要，
+		//不然ehcache会自动加载为默认的名字_default_,而ehcache2.5以后只允许创建单例的CacheManager，
+		//从而报重复加载CacheManager的错误。
+		
+		
+		//注意myEhcache对应配置文件的<ehcache name="myEhcache">
+        CacheManager cacheManager = CacheManager.getCacheManager("myEhcache");
+        if(cacheManager == null){
+            cacheManager = CacheManager.create();
+        }
+        EhCacheManager ehCacheManager = new EhCacheManager();
+        ehCacheManager.setCacheManager(cacheManager);
+        ehCacheManager.setCacheManagerConfigFile("classpath:shiro-ehcache.xml");
+        return ehCacheManager;
+		
+//		EhCacheManager ecm = new EhCacheManager();
+//		ecm.setCacheManagerConfigFile("classpath:shiro-ehcache.xml");
+//		return ecm;
 	}  
 	
 	@Bean
@@ -124,6 +141,8 @@ public class RootConfig {
 		map.put("/users/logout", "anon");
 		map.put("/users/save", "anon");
 		map.put("/ordernotification", "anon");
+		map.put("/images/**", "anon");
+		map.put("/reviews/findAll", "anon");
 		map.put("/**", "authc");
 //		map.put("/**", "anon");
 		   
