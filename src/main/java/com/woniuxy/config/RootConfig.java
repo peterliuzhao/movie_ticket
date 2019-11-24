@@ -143,9 +143,9 @@ public class RootConfig {
 		map.put("/ordernotification", "anon");
 		map.put("/images/**", "anon");
 		map.put("/reviews/findAll", "anon");
-//		map.put("/**", "authc");
-		map.put("/**", "anon");
-		   
+		map.put("/**", "authc");
+//		map.put("/**", "anon");
+		     
 //		sf.setLoginUrl("/index.jsp");
 //		sf.setUnauthorizedUrl("/unauthorized.jsp");
 
