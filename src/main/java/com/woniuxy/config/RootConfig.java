@@ -143,18 +143,18 @@ public class RootConfig {
 		map.put("/ordernotification", "anon");
 		map.put("/images/**", "anon");
 		map.put("/reviews/findAll", "anon");
-		map.put("/**", "authc");
+//		map.put("/**", "authc");
 //		map.put("/**", "anon");
 		     
 //		sf.setLoginUrl("/index.jsp");
 //		sf.setUnauthorizedUrl("/unauthorized.jsp");
 
 		
-//		// 自定义shiro过滤器的配置
-//        Map<String, Filter> filter = new HashMap<>();
-//        filter.put("custom", new ShiroUserFilter());
-//        sf.setFilters(filter);
-//        map.put("/**","custom");
+		// 自定义shiro过滤器的配置
+        Map<String, Filter> filter = new HashMap<>();
+        filter.put("custom", new ShiroUserFilter());
+        sf.setFilters(filter);
+        map.put("/**","custom");
             
 //		map.put("/index.jsp", "anon");
 //		map.put("/users/login", "anon");   
